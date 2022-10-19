@@ -7,7 +7,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class DogsRemoteDataSource(
-    private val service: DogsApiService,
+    private val service: DogsApi,
     private val mapper: DogDTOMapper
 ) : DogsDataSource {
     override suspend fun getAll(): List<Dog> {

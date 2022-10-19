@@ -5,7 +5,7 @@ import com.ianpedraza.dogedex.data.datasource.DogsDataSource
 import com.ianpedraza.dogedex.data.repository.DefaultDogsRepository
 import com.ianpedraza.dogedex.data.repository.DogsRepository
 import com.ianpedraza.dogedex.domain.mappers.DogDTOMapper
-import com.ianpedraza.dogedex.framework.api.DogsApiService
+import com.ianpedraza.dogedex.framework.api.DogsApi
 import com.ianpedraza.dogedex.framework.api.DogsRemoteDataSource
 import com.ianpedraza.dogedex.usecases.GetAllDogsUseCase
 import dagger.Module
@@ -31,7 +31,7 @@ object AppModule {
     @Provides
     fun provideDogsApi(
         retrofit: Retrofit
-    ): DogsApiService = retrofit.create(DogsApiService::class.java)
+    ): DogsApi = retrofit.create(DogsApi::class.java)
 
     @Singleton
     @Provides
@@ -40,7 +40,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideRemoteDogsDataSource(
-        service: DogsApiService,
+        service: DogsApi,
         mapper: DogDTOMapper
     ): DogsDataSource = DogsRemoteDataSource(service, mapper)
 
