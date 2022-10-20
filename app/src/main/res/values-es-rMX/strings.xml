@@ -8,6 +8,7 @@
     <string name="image_this_kind_of_dog">Foto de este tipo de perro</string>
     <string name="icon_of_a_heart">Icono de corazón</string>
     <string name="check_button">Botton de listo</string>
+    <string name="error_getting_dogs">Error al obtener la lista de perros</string>
 
     <string name="format_life_expectancy">%s años</string>
 </resources>

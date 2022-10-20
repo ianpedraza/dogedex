@@ -10,6 +10,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ianpedraza.dogedex.databinding.FragmentDogsListBinding
 import com.ianpedraza.dogedex.domain.models.Dog
+import com.ianpedraza.dogedex.utils.DataState
+import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.hideView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -53,8 +55,22 @@ class DogsListFragment : Fragment() {
     }
 
     private fun subscribeObservers() {
-        viewModel.dogsList.observe(viewLifecycleOwner) { dogs ->
-            adapter.submitList(dogs)
+        viewModel.dogsList.observe(viewLifecycleOwner) { dataState ->
+            when (dataState) {
+                is DataState.Error -> {
+                    binding.progressBarList.hideView()
+                    binding.textViewErrorList.hideView(false)
+                }
+                DataState.Loading -> {
+                    binding.progressBarList.hideView(false)
+                    binding.textViewErrorList.hideView()
+                }
+                is DataState.Success -> {
+                    binding.progressBarList.hideView()
+                    binding.textViewErrorList.hideView()
+                    adapter.submitList(dataState.data)
+                }
+            }
         }
     }
 

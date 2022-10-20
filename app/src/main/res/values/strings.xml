@@ -13,4 +13,5 @@
     <string name="format_life_expectancy">%s years</string>
     <string name="format_height" translatable="false">%.1f cm</string>
     <string name="format_index" translatable="false">#%d</string>
+    <string name="error_getting_dogs">Error while getting the dogs</string>
 </resources>
