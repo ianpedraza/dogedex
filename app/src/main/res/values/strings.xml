@@ -1,5 +1,16 @@
 <resources>
-    <string name="app_name">Dogedex</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="app_name" translatable="false">Dogedex</string>
+
+    <string name="female">Female</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="group">Group</string>
+    <string name="male">Male</string>
+    <string name="image_this_kind_of_dog">Image this kind of dog</string>
+    <string name="icon_of_a_heart">Icon of a heart</string>
+    <string name="check_button">Check button</string>
+
+    <string name="format_life_expectancy">%s years</string>
+    <string name="format_height" translatable="false">%.1f cm</string>
+    <string name="format_index" translatable="false">#%d</string>
 </resources>

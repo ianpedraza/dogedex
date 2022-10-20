@@ -8,7 +8,6 @@ import kotlinx.coroutines.withContext
 class DefaultDogsRepository(
     private val dataSource: DogsDataSource
 ) : DogsRepository {
-
     override suspend fun getAll(): List<Dog> {
         return withContext(Dispatchers.IO) {
             dataSource.getAll()

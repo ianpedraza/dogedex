@@ -21,4 +21,5 @@ ext {
     retrofit_version = "2.9.0"
     hilt_version = "2.44"
     hilt_viewmodels = "1.0.0-alpha03"
+    glide_version = "4.14.1"
 }

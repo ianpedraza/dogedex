@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ianpedraza.dogedex.databinding.ItemListDogsBinding
 import com.ianpedraza.dogedex.domain.models.Dog
 
-class DogsListAdapter : ListAdapter<Dog, DogsListAdapter.ViewHolder>(DogDiffUtil) {
+class DogsListAdapter(
+    private val onAction: (Action) -> Unit
+) : ListAdapter<Dog, DogsListAdapter.ViewHolder>(DogDiffUtil) {
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -18,7 +20,7 @@ class DogsListAdapter : ListAdapter<Dog, DogsListAdapter.ViewHolder>(DogDiffUtil
     override fun onBindViewHolder(
         holder: ViewHolder,
         position: Int
-    ) = holder.bind(getItem(position))
+    ) = holder.bind(getItem(position), onAction)
 
     class ViewHolder private constructor(
         private val binding: ItemListDogsBinding
@@ -32,11 +34,16 @@ class DogsListAdapter : ListAdapter<Dog, DogsListAdapter.ViewHolder>(DogDiffUtil
             }
         }
 
-        fun bind(item: Dog) {
+        fun bind(item: Dog, onAction: (Action) -> Unit) {
             with(binding) {
                 textViewName.text = item.name
+                root.setOnClickListener { onAction(Action.OnClick(item)) }
             }
         }
+    }
+
+    sealed class Action {
+        data class OnClick(val dog: Dog) : Action()
     }
 }
 
