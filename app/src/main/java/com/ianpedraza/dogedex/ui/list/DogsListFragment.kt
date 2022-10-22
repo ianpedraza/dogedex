@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ianpedraza.dogedex.databinding.FragmentDogsListBinding
 import com.ianpedraza.dogedex.domain.models.Dog
 import com.ianpedraza.dogedex.utils.DataState
-import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.hideView
+import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.showView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -46,7 +46,7 @@ class DogsListFragment : Fragment() {
     private fun setupRecyclerView() {
         adapter = DogsListAdapter(this::onAction)
 
-        val manager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        val manager = GridLayoutManager(requireContext(), GRID_SPAN_COUNT)
 
         binding.recyclerViewDogsList.apply {
             layoutManager = manager
@@ -57,21 +57,31 @@ class DogsListFragment : Fragment() {
     private fun subscribeObservers() {
         viewModel.dogsList.observe(viewLifecycleOwner) { dataState ->
             when (dataState) {
-                is DataState.Error -> {
-                    binding.progressBarList.hideView()
-                    binding.textViewErrorList.hideView(false)
-                }
-                DataState.Loading -> {
-                    binding.progressBarList.hideView(false)
-                    binding.textViewErrorList.hideView()
-                }
-                is DataState.Success -> {
-                    binding.progressBarList.hideView()
-                    binding.textViewErrorList.hideView()
-                    adapter.submitList(dataState.data)
-                }
+                is DataState.Error -> showError(dataState.exception)
+                DataState.Loading -> showLoading()
+                is DataState.Success -> showData(dataState.data)
             }
         }
+    }
+
+    private fun showError(e: Exception) {
+        binding.textViewErrorList.text = e.message
+        binding.progressBarList.showView(false)
+        binding.recyclerViewDogsList.showView(false)
+        binding.textViewErrorList.showView()
+    }
+
+    private fun showLoading() {
+        binding.textViewErrorList.showView(false)
+        binding.recyclerViewDogsList.showView(false)
+        binding.progressBarList.showView()
+    }
+
+    private fun showData(data: List<Dog>) {
+        binding.textViewErrorList.showView(false)
+        binding.progressBarList.showView(false)
+        binding.recyclerViewDogsList.showView()
+        adapter.submitList(data)
     }
 
     private fun onAction(action: DogsListAdapter.Action) {
@@ -86,5 +96,9 @@ class DogsListFragment : Fragment() {
                 dog
             )
         )
+    }
+
+    companion object {
+        private const val GRID_SPAN_COUNT = 3
     }
 }

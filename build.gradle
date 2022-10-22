@@ -22,5 +22,6 @@ ext {
     hilt_version = "2.44"
     hilt_viewmodels = "1.0.0-alpha03"
     glide_version = "4.14.1"
-    coroutines_android_version = '1.6.4'
+    coil_version = "2.2.2"
+    coroutines_android_version = "1.6.4"
 }

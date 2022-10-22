@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ianpedraza.dogedex.databinding.ItemListDogsBinding
 import com.ianpedraza.dogedex.domain.models.Dog
+import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.fromUrl
 
 class DogsListAdapter(
     private val onAction: (Action) -> Unit
@@ -36,7 +37,7 @@ class DogsListAdapter(
 
         fun bind(item: Dog, onAction: (Action) -> Unit) {
             with(binding) {
-                textViewName.text = item.name
+                imageViewDogItem.fromUrl(item.imageUrl)
                 root.setOnClickListener { onAction(Action.OnClick(item)) }
             }
         }
