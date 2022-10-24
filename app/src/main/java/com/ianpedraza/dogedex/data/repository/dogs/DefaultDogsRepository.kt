@@ -1,4 +1,4 @@
-package com.ianpedraza.dogedex.data.repository
+package com.ianpedraza.dogedex.data.repository.dogs
 
 import com.ianpedraza.dogedex.data.datasource.DogsDataSource
 import com.ianpedraza.dogedex.domain.models.Dog

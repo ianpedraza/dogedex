@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -31,7 +32,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginTop="@dimen/margin_default"
-        android:layout_marginEnd="@dimen/margin_default">
+        android:layout_marginEnd="@dimen/margin_default"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextSignUpPassword"
@@ -47,7 +49,8 @@
         android:id="@+id/textInputLayoutSignUpConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_default">
+        android:layout_margin="@dimen/margin_default"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/textInputEditTextSignUpConfirmPassword"
@@ -66,5 +69,14 @@
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginEnd="@dimen/margin_default"
         android:text="@string/sign_up" />
+
+    <ProgressBar
+        android:id="@+id/progressBarSignUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:visibility="gone"
+        tools:visibility="visible" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

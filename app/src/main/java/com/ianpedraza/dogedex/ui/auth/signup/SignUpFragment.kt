@@ -1,12 +1,19 @@
 package com.ianpedraza.dogedex.ui.auth.signup
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import com.ianpedraza.dogedex.R
 import com.ianpedraza.dogedex.databinding.FragmentSignUpBinding
+import com.ianpedraza.dogedex.domain.models.User
+import com.ianpedraza.dogedex.utils.DataState
+import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.showView
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -16,6 +23,8 @@ class SignUpFragment : Fragment() {
     private val binding: FragmentSignUpBinding get() = _binding!!
 
     private val viewModel: SignupViewModel by viewModels()
+
+    private val navController: NavController get() = findNavController()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,5 +62,45 @@ class SignUpFragment : Fragment() {
         viewModel.confirmPasswordError.observe(viewLifecycleOwner) { confirmPasswordError ->
             binding.textInputLayoutSignUpConfirmPassword.error = confirmPasswordError
         }
+
+        viewModel.fieldsValidated.observe(viewLifecycleOwner) { fields ->
+            fields?.let {
+                viewModel.signup(fields.first, fields.second)
+            }
+        }
+
+        viewModel.signUpStatus.observe(viewLifecycleOwner) { dataState ->
+            when (dataState) {
+                is DataState.Error -> showError(dataState.exception)
+                DataState.Loading -> showLoading()
+                is DataState.Success -> showSuccess(dataState.data)
+            }
+        }
+    }
+
+    private fun showError(error: Exception) {
+        binding.progressBarSignUp.showView(false)
+        binding.buttonSignup.showView()
+        showErrorDialog(error.message)
+    }
+
+    private fun showErrorDialog(message: String?) {
+        AlertDialog.Builder(requireContext())
+            .setTitle(getString(R.string.there_was_an_error))
+            .setMessage(message)
+            .setPositiveButton(android.R.string.ok, null)
+            .create()
+            .show()
+    }
+
+    private fun showLoading() {
+        binding.buttonSignup.showView(false)
+        binding.progressBarSignUp.showView()
+    }
+
+    private fun showSuccess(user: User) {
+        binding.progressBarSignUp.showView(false)
+        binding.buttonSignup.showView(false)
+        navController.navigate(SignUpFragmentDirections.actionSignUpFragmentToListFragment())
     }
 }

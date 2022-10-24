@@ -16,7 +16,14 @@ class NetworkUtils {
             } catch (e: UnknownHostException) {
                 emit(DataState.Error(Exception("There's no internet connection")))
             } catch (e: Exception) {
-                emit(DataState.Error(Exception("There's an unknown error")))
+                val errorMessage = when (e.message) {
+                    "sign_up_error" -> "Error signing up"
+                    "sign_in_error" -> "Error login in"
+                    "user_already_exist" -> "User already exist"
+                    else -> "There's an unknown error"
+                }
+
+                emit(DataState.Error(Exception(errorMessage)))
             }
         }
     }

@@ -1,6 +1,5 @@
-package com.ianpedraza.dogedex.framework
+package com.ianpedraza.dogedex.framework.dummy.dogs
 
-import com.ianpedraza.dogedex.data.DummyData
 import com.ianpedraza.dogedex.data.datasource.DogsDataSource
 import com.ianpedraza.dogedex.domain.models.Dog
 

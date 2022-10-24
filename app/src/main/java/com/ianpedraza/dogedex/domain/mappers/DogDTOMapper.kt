@@ -1,7 +1,7 @@
 package com.ianpedraza.dogedex.domain.mappers
 
 import com.ianpedraza.dogedex.domain.models.Dog
-import com.ianpedraza.dogedex.framework.api.response.DogDTO
+import com.ianpedraza.dogedex.framework.api.dto.DogDTO
 
 class DogDTOMapper : EntityMapper<DogDTO, Dog> {
     override fun fromResponseToDomainModel(response: DogDTO): Dog {

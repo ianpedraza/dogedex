@@ -26,4 +26,5 @@
     <string name="error_email_is_not_valid">Email is not valid</string>
     <string name="error_password_is_not_valid">Password is not valid</string>
     <string name="error_passwords_do_not_match">Password do not match</string>
+    <string name="there_was_an_error">There was an error</string>
 </resources>

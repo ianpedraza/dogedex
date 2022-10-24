@@ -1,4 +1,4 @@
-package com.ianpedraza.dogedex.framework.api.response
+package com.ianpedraza.dogedex.framework.api.dto
 
 import com.squareup.moshi.Json
 

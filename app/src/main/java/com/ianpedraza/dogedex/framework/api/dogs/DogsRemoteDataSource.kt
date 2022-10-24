@@ -1,8 +1,9 @@
-package com.ianpedraza.dogedex.framework.api
+package com.ianpedraza.dogedex.framework.api.dogs
 
 import com.ianpedraza.dogedex.data.datasource.DogsDataSource
 import com.ianpedraza.dogedex.domain.mappers.DogDTOMapper
 import com.ianpedraza.dogedex.domain.models.Dog
+import com.ianpedraza.dogedex.framework.api.DogsApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

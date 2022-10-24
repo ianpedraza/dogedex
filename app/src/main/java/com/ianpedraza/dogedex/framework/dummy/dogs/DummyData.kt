@@ -1,4 +1,4 @@
-package com.ianpedraza.dogedex.data
+package com.ianpedraza.dogedex.framework.dummy.dogs
 
 import com.ianpedraza.dogedex.domain.models.Dog
 

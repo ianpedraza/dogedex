@@ -2,15 +2,21 @@ package com.ianpedraza.dogedex.di
 
 import android.content.Context
 import com.ianpedraza.dogedex.BuildConfig
+import com.ianpedraza.dogedex.data.datasource.AuthDataSource
 import com.ianpedraza.dogedex.data.datasource.DogsDataSource
-import com.ianpedraza.dogedex.data.repository.DefaultDogsRepository
-import com.ianpedraza.dogedex.data.repository.DogsRepository
+import com.ianpedraza.dogedex.data.repository.auth.AuthRepository
+import com.ianpedraza.dogedex.data.repository.auth.DefaultAuthRepository
+import com.ianpedraza.dogedex.data.repository.dogs.DefaultDogsRepository
+import com.ianpedraza.dogedex.data.repository.dogs.DogsRepository
 import com.ianpedraza.dogedex.domain.mappers.DogDTOMapper
+import com.ianpedraza.dogedex.domain.mappers.UserDTOMapper
 import com.ianpedraza.dogedex.framework.api.DogsApi
-import com.ianpedraza.dogedex.framework.api.DogsRemoteDataSource
+import com.ianpedraza.dogedex.framework.api.auth.AuthRemoteDataSource
+import com.ianpedraza.dogedex.framework.api.dogs.DogsRemoteDataSource
 import com.ianpedraza.dogedex.ui.auth.signup.managers.SignUpResourcesDataManager
 import com.ianpedraza.dogedex.ui.auth.signup.managers.SignUpResourcesManager
 import com.ianpedraza.dogedex.usecases.GetAllDogsUseCase
+import com.ianpedraza.dogedex.usecases.SignUpUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,6 +42,8 @@ object AppModule {
     fun provideDogsApi(
         retrofit: Retrofit
     ): DogsApi = retrofit.create(DogsApi::class.java)
+
+    /* Dogs */
 
     @Singleton
     @Provides
@@ -66,10 +74,35 @@ object AppModule {
         repository: DogsRepository
     ): GetAllDogsUseCase = GetAllDogsUseCase(repository)
 
+    /* Signup */
+
     @Singleton
     @Provides
     fun provideSignUpResourcesManager(
         @ApplicationContext
         context: Context
     ): SignUpResourcesManager = SignUpResourcesDataManager(context.resources)
+
+    @Singleton
+    @Provides
+    fun provideUserDTOMapper(): UserDTOMapper = UserDTOMapper()
+
+    @Singleton
+    @Provides
+    fun provideAuthDataSource(
+        service: DogsApi,
+        mapper: UserDTOMapper
+    ): AuthDataSource = AuthRemoteDataSource(service, mapper)
+
+    @Singleton
+    @Provides
+    fun provideAuthRepository(
+        dataSource: AuthDataSource
+    ): AuthRepository = DefaultAuthRepository(dataSource)
+
+    @Singleton
+    @Provides
+    fun provideSignupUseCase(
+        repository: AuthRepository
+    ): SignUpUseCase = SignUpUseCase(repository)
 }
