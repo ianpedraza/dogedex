@@ -11,4 +11,16 @@
     <string name="error_getting_dogs">Error al obtener la lista de perros</string>
 
     <string name="format_life_expectancy">%s años</string>
+
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="login">Iniciar sesión</string>
+    <string name="do_not_have_an_account">No tengo una cuenta</string>
+    <string name="register">Registrar</string>
+    <string name="confirm_password">Confirmar contraseña</string>
+    <string name="sign_up">Registrarse</string>
+
+    <string name="error_email_is_not_valid">El correo electrónico no es válido</string>
+    <string name="error_password_is_not_valid">La contraseña no es válida</string>
+    <string name="error_passwords_do_not_match">Las contraseñas no coinciden</string>
 </resources>

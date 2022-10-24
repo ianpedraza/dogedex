@@ -13,5 +13,17 @@
     <string name="format_life_expectancy">%s years</string>
     <string name="format_height" translatable="false">%.1f cm</string>
     <string name="format_index" translatable="false">#%d</string>
+
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="do_not_have_an_account">Do not have an account</string>
+    <string name="register">Register</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="sign_up">Sign Up</string>
+
     <string name="error_getting_dogs">Error while getting the dogs</string>
+    <string name="error_email_is_not_valid">Email is not valid</string>
+    <string name="error_password_is_not_valid">Password is not valid</string>
+    <string name="error_passwords_do_not_match">Password do not match</string>
 </resources>
