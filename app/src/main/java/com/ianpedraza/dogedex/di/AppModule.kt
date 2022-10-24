@@ -8,8 +8,8 @@ import com.ianpedraza.dogedex.data.repository.DogsRepository
 import com.ianpedraza.dogedex.domain.mappers.DogDTOMapper
 import com.ianpedraza.dogedex.framework.api.DogsApi
 import com.ianpedraza.dogedex.framework.api.DogsRemoteDataSource
-import com.ianpedraza.dogedex.ui.auth.signup.SignUpResourcesDataManager
-import com.ianpedraza.dogedex.ui.auth.signup.SignUpResourcesManager
+import com.ianpedraza.dogedex.ui.auth.signup.managers.SignUpResourcesDataManager
+import com.ianpedraza.dogedex.ui.auth.signup.managers.SignUpResourcesManager
 import com.ianpedraza.dogedex.usecases.GetAllDogsUseCase
 import dagger.Module
 import dagger.Provides

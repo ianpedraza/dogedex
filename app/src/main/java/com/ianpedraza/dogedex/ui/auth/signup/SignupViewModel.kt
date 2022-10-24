@@ -3,6 +3,7 @@ package com.ianpedraza.dogedex.ui.auth.signup
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.ianpedraza.dogedex.ui.auth.signup.managers.SignUpResourcesManager
 import com.ianpedraza.dogedex.utils.Validators
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject

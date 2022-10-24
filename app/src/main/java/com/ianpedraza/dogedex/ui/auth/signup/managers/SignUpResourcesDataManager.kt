@@ -1,4 +1,4 @@
-package com.ianpedraza.dogedex.ui.auth.signup
+package com.ianpedraza.dogedex.ui.auth.signup.managers
 
 import android.content.res.Resources
 import com.ianpedraza.dogedex.R

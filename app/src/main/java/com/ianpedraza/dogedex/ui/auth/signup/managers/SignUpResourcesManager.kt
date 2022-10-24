@@ -1,4 +1,4 @@
-package com.ianpedraza.dogedex.ui.auth.signup
+package com.ianpedraza.dogedex.ui.auth.signup.managers
 
 interface SignUpResourcesManager {
     fun getEmailIsNotValidError(): String
