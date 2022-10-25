@@ -82,6 +82,9 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_android_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_android_version"
 
+    // GSON
+    implementation "com.google.code.gson:gson:$gson_version"
+
     // Testing
     testImplementation "junit:junit:$junit_version"
 

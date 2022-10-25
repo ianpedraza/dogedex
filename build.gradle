@@ -24,4 +24,5 @@ ext {
     glide_version = "4.14.1"
     coil_version = "2.2.2"
     coroutines_android_version = "1.6.4"
+    gson_version = "2.9.0"
 }

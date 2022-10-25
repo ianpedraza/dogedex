@@ -1,5 +1,6 @@
 package com.ianpedraza.dogedex.di
 
+import android.content.Context
 import com.ianpedraza.dogedex.BuildConfig
 import com.ianpedraza.dogedex.data.datasource.AuthDataSource
 import com.ianpedraza.dogedex.data.datasource.DogsDataSource
@@ -15,9 +16,11 @@ import com.ianpedraza.dogedex.framework.api.dogs.DogsRemoteDataSource
 import com.ianpedraza.dogedex.usecases.GetAllDogsUseCase
 import com.ianpedraza.dogedex.usecases.LoginUseCase
 import com.ianpedraza.dogedex.usecases.SignUpUseCase
+import com.ianpedraza.dogedex.utils.SharedPreferencesUtils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -26,6 +29,13 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
+
+    @Singleton
+    @Provides
+    fun provideSharedPreferences(
+        @ApplicationContext
+        context: Context
+    ): SharedPreferencesUtils = SharedPreferencesUtils(context)
 
     @Singleton
     @Provides
