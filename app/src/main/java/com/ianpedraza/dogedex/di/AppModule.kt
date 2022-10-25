@@ -13,9 +13,10 @@ import com.ianpedraza.dogedex.domain.mappers.UserDTOMapper
 import com.ianpedraza.dogedex.framework.api.DogsApi
 import com.ianpedraza.dogedex.framework.api.auth.AuthRemoteDataSource
 import com.ianpedraza.dogedex.framework.api.dogs.DogsRemoteDataSource
-import com.ianpedraza.dogedex.ui.auth.signup.managers.SignUpResourcesDataManager
-import com.ianpedraza.dogedex.ui.auth.signup.managers.SignUpResourcesManager
+import com.ianpedraza.dogedex.ui.auth.managers.AuthResourcesDataManager
+import com.ianpedraza.dogedex.ui.auth.managers.AuthResourcesManager
 import com.ianpedraza.dogedex.usecases.GetAllDogsUseCase
+import com.ianpedraza.dogedex.usecases.LoginUseCase
 import com.ianpedraza.dogedex.usecases.SignUpUseCase
 import dagger.Module
 import dagger.Provides
@@ -81,7 +82,7 @@ object AppModule {
     fun provideSignUpResourcesManager(
         @ApplicationContext
         context: Context
-    ): SignUpResourcesManager = SignUpResourcesDataManager(context.resources)
+    ): AuthResourcesManager = AuthResourcesDataManager(context.resources)
 
     @Singleton
     @Provides
@@ -105,4 +106,11 @@ object AppModule {
     fun provideSignupUseCase(
         repository: AuthRepository
     ): SignUpUseCase = SignUpUseCase(repository)
+
+    /* Login */
+    @Singleton
+    @Provides
+    fun provideLoginUseCase(
+        repository: AuthRepository
+    ): LoginUseCase = LoginUseCase(repository)
 }

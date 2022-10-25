@@ -1,11 +1,11 @@
-package com.ianpedraza.dogedex.ui.auth.signup.managers
+package com.ianpedraza.dogedex.ui.auth.managers
 
 import android.content.res.Resources
 import com.ianpedraza.dogedex.R
 
-class SignUpResourcesDataManager(
+class AuthResourcesDataManager(
     private val resources: Resources
-) : SignUpResourcesManager {
+) : AuthResourcesManager {
     override fun getEmailIsNotValidError(): String =
         resources.getString(R.string.error_email_is_not_valid)
 

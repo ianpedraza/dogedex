@@ -2,7 +2,7 @@ package com.ianpedraza.dogedex.framework.api.auth.response
 
 import com.squareup.moshi.Json
 
-data class SignupResponse(
+data class AuthResponse(
     val message: String,
 
     @field:Json(name = "is_success")

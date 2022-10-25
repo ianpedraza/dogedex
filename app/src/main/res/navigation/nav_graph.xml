@@ -15,7 +15,7 @@
         android:id="@+id/listFragment"
         android:name="com.ianpedraza.dogedex.ui.list.DogsListFragment"
         android:label="fragment_list"
-        tools:layout="@layout/fragment_dogs_list" >
+        tools:layout="@layout/fragment_dogs_list">
         <action
             android:id="@+id/action_listFragment_to_dogDetailFragment"
             app:destination="@id/dogDetailFragment" />
@@ -24,7 +24,7 @@
         android:id="@+id/dogDetailFragment"
         android:name="com.ianpedraza.dogedex.ui.detail.DogDetailFragment"
         android:label="fragment_dog_detail"
-        tools:layout="@layout/fragment_dog_detail" >
+        tools:layout="@layout/fragment_dog_detail">
         <argument
             android:name="dog"
             app:argType="com.ianpedraza.dogedex.domain.models.Dog" />
@@ -33,27 +33,25 @@
         android:id="@+id/loginFragment"
         android:name="com.ianpedraza.dogedex.ui.auth.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
         <action
             android:id="@+id/action_loginFragment_to_listFragment"
             app:destination="@id/listFragment"
-            app:launchSingleTop="false"
-            app:popUpTo="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.ianpedraza.dogedex.ui.auth.signup.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up" >
+        tools:layout="@layout/fragment_sign_up">
         <action
             android:id="@+id/action_signUpFragment_to_listFragment"
             app:destination="@id/listFragment"
-            app:launchSingleTop="false"
-            app:popUpTo="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
     </fragment>
 </navigation>

@@ -1,4 +1,4 @@
-package com.ianpedraza.dogedex.ui.auth.signup
+package com.ianpedraza.dogedex.ui.auth.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ianpedraza.dogedex.domain.models.User
 import com.ianpedraza.dogedex.ui.auth.managers.AuthResourcesManager
-import com.ianpedraza.dogedex.usecases.SignUpUseCase
+import com.ianpedraza.dogedex.usecases.LoginUseCase
 import com.ianpedraza.dogedex.utils.DataState
 import com.ianpedraza.dogedex.utils.Validators
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,28 +16,26 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SignupViewModel
+class LoginViewModel
 @Inject
 constructor(
     private val resourcesManager: AuthResourcesManager,
-    private val signUpUseCase: SignUpUseCase
+    private val loginUseCase: LoginUseCase
 ) : ViewModel() {
+
     private val _emailError = MutableLiveData<String?>()
     val emailError: LiveData<String?> get() = _emailError
 
     private val _passwordError = MutableLiveData<String?>()
     val passwordError: LiveData<String?> get() = _passwordError
 
-    private val _confirmPasswordError = MutableLiveData<String?>()
-    val confirmPasswordError: LiveData<String?> get() = _confirmPasswordError
-
     private val _fieldsValidated = MutableLiveData<Pair<String, String>?>()
     val fieldsValidated: LiveData<Pair<String, String>?> get() = _fieldsValidated
 
-    private val _signUpStatus = MutableLiveData<DataState<User>?>()
-    val signUpStatus: LiveData<DataState<User>?> get() = _signUpStatus
+    private val _loginStatus = MutableLiveData<DataState<User>?>()
+    val loginStatus: LiveData<DataState<User>?> get() = _loginStatus
 
-    fun validateFields(email: String, password: String, confirmPassword: String) {
+    fun validateFields(email: String, password: String) {
         resetErrors()
 
         if (!Validators.isValidEmail(email)) {
@@ -50,11 +48,6 @@ constructor(
             return
         }
 
-        if (!Validators.arePasswordsEqual(password, confirmPassword)) {
-            _confirmPasswordError.value = resourcesManager.getPasswordsDoNotMatchError()
-            return
-        }
-
         _fieldsValidated.value = Pair(email, password)
     }
 
@@ -62,22 +55,21 @@ constructor(
         _fieldsValidated.value = null
     }
 
-    fun signup(email: String, password: String) {
+    fun login(email: String, password: String) {
         viewModelScope.launch {
-            signUpUseCase(email, password).onEach { dataState ->
-                _signUpStatus.value = dataState
+            loginUseCase(email, password).onEach { dataState ->
+                _loginStatus.value = dataState
             }.launchIn(viewModelScope)
         }
     }
 
-    fun onSignUpHandled() {
-        _signUpStatus.value = null
+    fun onLoginHandled() {
+        _loginStatus.value = null
     }
 
     private fun resetErrors() {
         _fieldsValidated.value = null
         _emailError.value = null
         _passwordError.value = null
-        _confirmPasswordError.value = null
     }
 }

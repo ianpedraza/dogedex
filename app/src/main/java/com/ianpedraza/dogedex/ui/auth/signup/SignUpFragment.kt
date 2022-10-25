@@ -66,14 +66,18 @@ class SignUpFragment : Fragment() {
         viewModel.fieldsValidated.observe(viewLifecycleOwner) { fields ->
             fields?.let {
                 viewModel.signup(fields.first, fields.second)
+                viewModel.onFieldsValidated()
             }
         }
 
         viewModel.signUpStatus.observe(viewLifecycleOwner) { dataState ->
-            when (dataState) {
-                is DataState.Error -> showError(dataState.exception)
-                DataState.Loading -> showLoading()
-                is DataState.Success -> showSuccess(dataState.data)
+            dataState?.let {
+                when (dataState) {
+                    is DataState.Error -> showError(dataState.exception)
+                    DataState.Loading -> showLoading()
+                    is DataState.Success -> showSuccess(dataState.data)
+                }
+                viewModel.onSignUpHandled()
             }
         }
     }

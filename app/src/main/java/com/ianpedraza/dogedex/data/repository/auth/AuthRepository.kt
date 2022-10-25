@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
     suspend fun signup(email: String, password: String): Flow<DataState<User>>
+    suspend fun login(email: String, password: String): Flow<DataState<User>>
 }

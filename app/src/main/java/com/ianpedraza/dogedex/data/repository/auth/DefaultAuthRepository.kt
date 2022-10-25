@@ -10,7 +10,8 @@ class DefaultAuthRepository(
     private val dataSource: AuthDataSource
 ) : AuthRepository {
     override suspend fun signup(email: String, password: String): Flow<DataState<User>> =
-        makeNetworkCall {
-            dataSource.signup(email, password)
-        }
+        makeNetworkCall { dataSource.signup(email, password) }
+
+    override suspend fun login(email: String, password: String): Flow<DataState<User>> =
+        makeNetworkCall { dataSource.login(email, password) }
 }
