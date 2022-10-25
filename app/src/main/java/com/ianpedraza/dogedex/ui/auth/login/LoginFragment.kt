@@ -55,11 +55,19 @@ class LoginFragment : Fragment() {
 
     private fun subscribeObservers() {
         viewModel.emailError.observe(viewLifecycleOwner) { emailError ->
-            binding.textInputLayoutLoginEmail.error = emailError
+            binding.textInputLayoutLoginEmail.error = if (emailError) {
+                getString(R.string.error_email_is_not_valid)
+            } else {
+                null
+            }
         }
 
         viewModel.passwordError.observe(viewLifecycleOwner) { passwordError ->
-            binding.textInputLayoutLoginPassword.error = passwordError
+            binding.textInputLayoutLoginPassword.error = if (passwordError) {
+                getString(R.string.error_password_is_not_valid)
+            } else {
+                null
+            }
         }
 
         viewModel.fieldsValidated.observe(viewLifecycleOwner) { fields ->

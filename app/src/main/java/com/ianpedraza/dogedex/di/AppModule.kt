@@ -1,6 +1,5 @@
 package com.ianpedraza.dogedex.di
 
-import android.content.Context
 import com.ianpedraza.dogedex.BuildConfig
 import com.ianpedraza.dogedex.data.datasource.AuthDataSource
 import com.ianpedraza.dogedex.data.datasource.DogsDataSource
@@ -13,15 +12,12 @@ import com.ianpedraza.dogedex.domain.mappers.UserDTOMapper
 import com.ianpedraza.dogedex.framework.api.DogsApi
 import com.ianpedraza.dogedex.framework.api.auth.AuthRemoteDataSource
 import com.ianpedraza.dogedex.framework.api.dogs.DogsRemoteDataSource
-import com.ianpedraza.dogedex.ui.auth.managers.AuthResourcesDataManager
-import com.ianpedraza.dogedex.ui.auth.managers.AuthResourcesManager
 import com.ianpedraza.dogedex.usecases.GetAllDogsUseCase
 import com.ianpedraza.dogedex.usecases.LoginUseCase
 import com.ianpedraza.dogedex.usecases.SignUpUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -76,13 +72,6 @@ object AppModule {
     ): GetAllDogsUseCase = GetAllDogsUseCase(repository)
 
     /* Signup */
-
-    @Singleton
-    @Provides
-    fun provideSignUpResourcesManager(
-        @ApplicationContext
-        context: Context
-    ): AuthResourcesManager = AuthResourcesDataManager(context.resources)
 
     @Singleton
     @Provides

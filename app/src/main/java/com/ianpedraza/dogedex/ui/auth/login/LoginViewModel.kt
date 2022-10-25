@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ianpedraza.dogedex.domain.models.User
-import com.ianpedraza.dogedex.ui.auth.managers.AuthResourcesManager
 import com.ianpedraza.dogedex.usecases.LoginUseCase
 import com.ianpedraza.dogedex.utils.DataState
 import com.ianpedraza.dogedex.utils.Validators
@@ -19,15 +18,14 @@ import javax.inject.Inject
 class LoginViewModel
 @Inject
 constructor(
-    private val resourcesManager: AuthResourcesManager,
     private val loginUseCase: LoginUseCase
 ) : ViewModel() {
 
-    private val _emailError = MutableLiveData<String?>()
-    val emailError: LiveData<String?> get() = _emailError
+    private val _emailError = MutableLiveData<Boolean>()
+    val emailError: LiveData<Boolean> get() = _emailError
 
-    private val _passwordError = MutableLiveData<String?>()
-    val passwordError: LiveData<String?> get() = _passwordError
+    private val _passwordError = MutableLiveData<Boolean>()
+    val passwordError: LiveData<Boolean> get() = _passwordError
 
     private val _fieldsValidated = MutableLiveData<Pair<String, String>?>()
     val fieldsValidated: LiveData<Pair<String, String>?> get() = _fieldsValidated
@@ -39,12 +37,12 @@ constructor(
         resetErrors()
 
         if (!Validators.isValidEmail(email)) {
-            _emailError.value = resourcesManager.getEmailIsNotValidError()
+            _emailError.value = true
             return
         }
 
         if (!Validators.isValidPassword(password)) {
-            _passwordError.value = resourcesManager.getPasswordIsNotValidError()
+            _passwordError.value = true
             return
         }
 
@@ -69,7 +67,7 @@ constructor(
 
     private fun resetErrors() {
         _fieldsValidated.value = null
-        _emailError.value = null
-        _passwordError.value = null
+        _emailError.value = false
+        _passwordError.value = false
     }
 }

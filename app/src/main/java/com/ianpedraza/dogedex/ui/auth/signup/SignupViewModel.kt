@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ianpedraza.dogedex.domain.models.User
-import com.ianpedraza.dogedex.ui.auth.managers.AuthResourcesManager
 import com.ianpedraza.dogedex.usecases.SignUpUseCase
 import com.ianpedraza.dogedex.utils.DataState
 import com.ianpedraza.dogedex.utils.Validators
@@ -19,17 +18,16 @@ import javax.inject.Inject
 class SignupViewModel
 @Inject
 constructor(
-    private val resourcesManager: AuthResourcesManager,
     private val signUpUseCase: SignUpUseCase
 ) : ViewModel() {
-    private val _emailError = MutableLiveData<String?>()
-    val emailError: LiveData<String?> get() = _emailError
+    private val _emailError = MutableLiveData<Boolean>()
+    val emailError: LiveData<Boolean> get() = _emailError
 
-    private val _passwordError = MutableLiveData<String?>()
-    val passwordError: LiveData<String?> get() = _passwordError
+    private val _passwordError = MutableLiveData<Boolean>()
+    val passwordError: LiveData<Boolean> get() = _passwordError
 
-    private val _confirmPasswordError = MutableLiveData<String?>()
-    val confirmPasswordError: LiveData<String?> get() = _confirmPasswordError
+    private val _confirmPasswordError = MutableLiveData<Boolean>()
+    val confirmPasswordError: LiveData<Boolean> get() = _confirmPasswordError
 
     private val _fieldsValidated = MutableLiveData<Pair<String, String>?>()
     val fieldsValidated: LiveData<Pair<String, String>?> get() = _fieldsValidated
@@ -41,17 +39,17 @@ constructor(
         resetErrors()
 
         if (!Validators.isValidEmail(email)) {
-            _emailError.value = resourcesManager.getEmailIsNotValidError()
+            _emailError.value = true
             return
         }
 
         if (!Validators.isValidPassword(password)) {
-            _passwordError.value = resourcesManager.getPasswordIsNotValidError()
+            _passwordError.value = true
             return
         }
 
         if (!Validators.arePasswordsEqual(password, confirmPassword)) {
-            _confirmPasswordError.value = resourcesManager.getPasswordsDoNotMatchError()
+            _confirmPasswordError.value = true
             return
         }
 
@@ -76,8 +74,8 @@ constructor(
 
     private fun resetErrors() {
         _fieldsValidated.value = null
-        _emailError.value = null
-        _passwordError.value = null
-        _confirmPasswordError.value = null
+        _emailError.value = false
+        _passwordError.value = false
+        _confirmPasswordError.value = false
     }
 }

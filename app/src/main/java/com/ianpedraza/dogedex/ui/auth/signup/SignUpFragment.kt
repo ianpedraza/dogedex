@@ -52,15 +52,27 @@ class SignUpFragment : Fragment() {
 
     private fun subscribeObservers() {
         viewModel.emailError.observe(viewLifecycleOwner) { emailError ->
-            binding.textInputLayoutSignUpEmail.error = emailError
+            binding.textInputLayoutSignUpEmail.error = if (emailError) {
+                getString(R.string.error_email_is_not_valid)
+            } else {
+                null
+            }
         }
 
         viewModel.passwordError.observe(viewLifecycleOwner) { passwordError ->
-            binding.textInputLayoutSignUpPassword.error = passwordError
+            binding.textInputLayoutSignUpPassword.error = if (passwordError) {
+                getString(R.string.error_password_is_not_valid)
+            } else {
+                null
+            }
         }
 
         viewModel.confirmPasswordError.observe(viewLifecycleOwner) { confirmPasswordError ->
-            binding.textInputLayoutSignUpConfirmPassword.error = confirmPasswordError
+            binding.textInputLayoutSignUpConfirmPassword.error = if (confirmPasswordError) {
+                getString(R.string.error_passwords_do_not_match)
+            } else {
+                null
+            }
         }
 
         viewModel.fieldsValidated.observe(viewLifecycleOwner) { fields ->
