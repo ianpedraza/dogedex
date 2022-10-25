@@ -9,12 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import com.ianpedraza.dogedex.NavGraphDirections
 import com.ianpedraza.dogedex.R
 import com.ianpedraza.dogedex.databinding.FragmentLoginBinding
 import com.ianpedraza.dogedex.domain.models.User
 import com.ianpedraza.dogedex.utils.DataState
+import com.ianpedraza.dogedex.utils.SharedPreferencesUtils
 import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.showView
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
@@ -25,6 +28,9 @@ class LoginFragment : Fragment() {
     private val viewModel: LoginViewModel by viewModels()
 
     private val navController: NavController get() = findNavController()
+
+    @Inject
+    lateinit var sharedPreferencesUtils: SharedPreferencesUtils
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -110,8 +116,9 @@ class LoginFragment : Fragment() {
     }
 
     private fun showSuccess(user: User) {
+        sharedPreferencesUtils.saveUser(user)
         binding.progressBarLogin.showView(false)
         binding.buttonLogin.showView(false)
-        navController.navigate(LoginFragmentDirections.actionLoginFragmentToListFragment())
+        navController.navigate(NavGraphDirections.actionGlobalListFragment())
     }
 }
