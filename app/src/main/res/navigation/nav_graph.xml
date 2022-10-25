@@ -5,11 +5,24 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/loginFragment">
 
+    <action
+        android:id="@+id/action_global_homeFragment"
+        app:destination="@id/homeFragment"
+        app:popUpTo="@id/nav_graph"
+        app:popUpToInclusive="true" />
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.ianpedraza.dogedex.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/listFragment"
@@ -20,6 +33,7 @@
             android:id="@+id/action_listFragment_to_dogDetailFragment"
             app:destination="@id/dogDetailFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/dogDetailFragment"
         android:name="com.ianpedraza.dogedex.ui.detail.DogDetailFragment"
@@ -29,6 +43,7 @@
             android:name="dog"
             app:argType="com.ianpedraza.dogedex.domain.models.Dog" />
     </fragment>
+
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.ianpedraza.dogedex.ui.auth.login.LoginFragment"
@@ -38,14 +53,23 @@
             android:id="@+id/action_loginFragment_to_signUpFragment"
             app:destination="@id/signUpFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/signUpFragment"
         android:name="com.ianpedraza.dogedex.ui.auth.signup.SignUpFragment"
         android:label="fragment_sign_up"
-        tools:layout="@layout/fragment_sign_up"/>
-    <action
-        android:id="@+id/action_global_listFragment"
-        app:destination="@id/listFragment"
-        app:popUpTo="@id/nav_graph"
-        app:popUpToInclusive="true" />
+        tools:layout="@layout/fragment_sign_up" />
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.ianpedraza.dogedex.ui.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings">
+        <action
+            android:id="@+id/action_settingsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

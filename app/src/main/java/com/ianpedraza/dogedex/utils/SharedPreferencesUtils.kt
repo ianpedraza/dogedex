@@ -22,6 +22,12 @@ class SharedPreferencesUtils(context: Context) {
         }.apply()
     }
 
+    fun removeUser() {
+        sharedPreferences.edit().apply {
+            putString(USER_KEY, null)
+        }.apply()
+    }
+
     fun getUser(): User? {
         val gson = Gson()
         val userJson = sharedPreferences.getString(USER_KEY, null) ?: return null

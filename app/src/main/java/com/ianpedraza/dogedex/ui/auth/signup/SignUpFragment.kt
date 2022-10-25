@@ -5,11 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.ianpedraza.dogedex.NavGraphDirections
 import com.ianpedraza.dogedex.R
 import com.ianpedraza.dogedex.databinding.FragmentSignUpBinding
 import com.ianpedraza.dogedex.domain.models.User
@@ -91,7 +91,7 @@ class SignUpFragment : Fragment() {
         viewModel.signUpStatus.observe(viewLifecycleOwner) { dataState ->
             dataState?.let {
                 when (dataState) {
-                    is DataState.Error -> showError(dataState.exception)
+                    is DataState.Error -> showError(dataState.error)
                     DataState.Loading -> showLoading()
                     is DataState.Success -> showSuccess(dataState.data)
                 }
@@ -100,16 +100,16 @@ class SignUpFragment : Fragment() {
         }
     }
 
-    private fun showError(error: Exception) {
+    private fun showError(@StringRes error: Int) {
         binding.progressBarSignUp.showView(false)
         binding.buttonSignup.showView()
-        showErrorDialog(error.message)
+        showErrorDialog(error)
     }
 
-    private fun showErrorDialog(message: String?) {
+    private fun showErrorDialog(@StringRes error: Int) {
         AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.there_was_an_error))
-            .setMessage(message)
+            .setMessage(error)
             .setPositiveButton(android.R.string.ok, null)
             .create()
             .show()
@@ -124,6 +124,6 @@ class SignUpFragment : Fragment() {
         sharedPreferencesUtils.saveUser(user)
         binding.progressBarSignUp.showView(false)
         binding.buttonSignup.showView(false)
-        navController.navigate(NavGraphDirections.actionGlobalListFragment())
+        navController.navigate(SignUpFragmentDirections.actionGlobalHomeFragment())
     }
 }

@@ -27,4 +27,14 @@
     <string name="error_password_is_not_valid">Password is not valid</string>
     <string name="error_passwords_do_not_match">Password do not match</string>
     <string name="there_was_an_error">There was an error</string>
+    <string name="take_photo_button">Take photo button</string>
+    <string name="logout">Logout</string>
+    <string name="do_you_wanna_logout">Do you want to logout?</string>
+    <string name="error_signing_up">Error signing up</string>
+    <string name="error_login_in">Error login in</string>
+    <string name="user_already_exist">User already exist</string>
+    <string name="user_not_found">User not found</string>
+    <string name="error_unkown">There\'s an unknown error</string>
+    <string name="error_no_internet_conecction">There\'s no internet connection</string>
+    <string name="error_wrong_user_or_password">Wrong user or password</string>
 </resources>

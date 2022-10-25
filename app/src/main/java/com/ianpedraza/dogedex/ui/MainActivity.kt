@@ -26,6 +26,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    private val topLevelFragments = setOf(R.id.loginFragment, R.id.homeFragment)
+
     @Inject
     lateinit var sharedPreferencesUtils: SharedPreferencesUtils
 
@@ -37,13 +39,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        appBarConfiguration = AppBarConfiguration(navController.graph)
+        appBarConfiguration = AppBarConfiguration.Builder(topLevelFragments).build()
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
     }
 
     private fun checkUserLoggedIn() {
         sharedPreferencesUtils.getUser() ?: return
-        navController.navigate(NavGraphDirections.actionGlobalListFragment())
+        navController.navigate(NavGraphDirections.actionGlobalHomeFragment())
     }
 
     override fun onSupportNavigateUp(): Boolean =

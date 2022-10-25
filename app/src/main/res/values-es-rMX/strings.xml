@@ -23,4 +23,15 @@
     <string name="error_email_is_not_valid">El correo electrónico no es válido</string>
     <string name="error_password_is_not_valid">La contraseña no es válida</string>
     <string name="error_passwords_do_not_match">Las contraseñas no coinciden</string>
+    <string name="there_was_an_error">Ocurrió un error</string>
+    <string name="take_photo_button">Botón de tomar una foto</string>
+    <string name="logout">Cerrar sesión</string>
+    <string name="do_you_wanna_logout">Quieres cerrar la sesión?</string>
+    <string name="error_signing_up">Error al registrarse</string>
+    <string name="error_login_in">Error al iniciar sesión</string>
+    <string name="user_already_exist">El usuario ya existe</string>
+    <string name="user_not_found">El usuario no existe</string>
+    <string name="error_unkown">Ocurrió un error desconocido</string>
+    <string name="error_no_internet_conecction">No hay conexión</string>
+    <string name="error_wrong_user_or_password">Usuario o contraseña incorrectos</string>
 </resources>

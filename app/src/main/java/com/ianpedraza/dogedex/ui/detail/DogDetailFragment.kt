@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.ianpedraza.dogedex.R
@@ -17,6 +18,8 @@ class DogDetailFragment : Fragment() {
     private val binding: FragmentDogDetailBinding get() = _binding!!
 
     private val args: DogDetailFragmentArgs by navArgs()
+
+    private val navController: NavController get() = findNavController()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +39,7 @@ class DogDetailFragment : Fragment() {
         setupDog()
 
         binding.fabDoneButton.setOnClickListener {
-            findNavController().navigateUp()
+            navController.navigateUp()
         }
     }
 

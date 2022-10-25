@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ianpedraza.dogedex.databinding.FragmentDogsListBinding
@@ -23,6 +25,8 @@ class DogsListFragment : Fragment() {
     private val viewModel: DogsListViewModel by viewModels()
 
     private lateinit var adapter: DogsListAdapter
+
+    private val navController: NavController get() = findNavController()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,15 +61,15 @@ class DogsListFragment : Fragment() {
     private fun subscribeObservers() {
         viewModel.dogsList.observe(viewLifecycleOwner) { dataState ->
             when (dataState) {
-                is DataState.Error -> showError(dataState.exception)
+                is DataState.Error -> showError(dataState.error)
                 DataState.Loading -> showLoading()
                 is DataState.Success -> showData(dataState.data)
             }
         }
     }
 
-    private fun showError(e: Exception) {
-        binding.textViewErrorList.text = e.message
+    private fun showError(@StringRes error: Int) {
+        binding.textViewErrorList.text = getString(error)
         binding.progressBarList.showView(false)
         binding.recyclerViewDogsList.showView(false)
         binding.textViewErrorList.showView()
@@ -91,7 +95,7 @@ class DogsListFragment : Fragment() {
     }
 
     private fun openDog(dog: Dog) {
-        findNavController().navigate(
+        navController.navigate(
             DogsListFragmentDirections.actionListFragmentToDogDetailFragment(
                 dog
             )
