@@ -28,13 +28,23 @@
     <string name="error_passwords_do_not_match">Password do not match</string>
     <string name="there_was_an_error">There was an error</string>
     <string name="take_photo_button">Take photo button</string>
+    <string name="show_dogs_list_button">Show dogs list button</string>
+    <string name="open_settings_button">Go to app settings button</string>
     <string name="logout">Logout</string>
     <string name="do_you_wanna_logout">Do you want to logout?</string>
+
     <string name="error_signing_up">Error signing up</string>
     <string name="error_login_in">Error login in</string>
-    <string name="user_already_exist">User already exist</string>
-    <string name="user_not_found">User not found</string>
+    <string name="error_user_already_exist">User already exist</string>
+    <string name="error_user_not_found">User not found</string>
     <string name="error_unkown">There\'s an unknown error</string>
     <string name="error_no_internet_conecction">There\'s no internet connection</string>
     <string name="error_wrong_user_or_password">Wrong user or password</string>
+    <string name="error_adding_dog">There was an error adding dog</string>
+
+    <string name="should_accept_camera_permission">You need to accept the camera permissions to use camera</string>
+    <string name="accept_camera_permission">Accept camera permission</string>
+    <string name="camera_permissions_its_needed">The camera\'s permission it\'s needed to find and add new dogs to your %s.</string>
+    <string name="error_taking_photo">Error taking photo</string>
+    <string name="image_taken_by_the_camera">Image taken by the camera</string>
 </resources>

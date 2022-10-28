@@ -14,6 +14,7 @@ class NetworkUtils {
         private const val ERROR_SIGN_IN_MSG = "sign_in_error"
         private const val ERROR_USER_ALREADY_EXIST_MSG = "user_already_exist"
         private const val ERROR_USER_NOT_FOUND = "user_not_found"
+        private const val ERROR_ADDING_DOG = "error_adding_dog"
 
         suspend fun <T> makeNetworkCall(
             call: suspend () -> T
@@ -35,8 +36,9 @@ class NetworkUtils {
                 val errorMessage = when (e.message) {
                     ERROR_SIGN_UP_MSG -> R.string.error_signing_up
                     ERROR_SIGN_IN_MSG -> R.string.error_login_in
-                    ERROR_USER_ALREADY_EXIST_MSG -> R.string.user_already_exist
-                    ERROR_USER_NOT_FOUND -> R.string.user_not_found
+                    ERROR_USER_ALREADY_EXIST_MSG -> R.string.error_user_already_exist
+                    ERROR_USER_NOT_FOUND -> R.string.error_user_not_found
+                    ERROR_ADDING_DOG -> R.string.error_adding_dog
                     else -> R.string.error_unkown
                 }
                 emit(DataState.Error(errorMessage))

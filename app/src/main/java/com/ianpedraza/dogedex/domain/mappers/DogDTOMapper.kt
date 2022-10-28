@@ -23,6 +23,6 @@ class DogDTOMapper : EntityMapper<DogDTO, Dog> {
     override fun fromResponseListToDomainModelList(response: List<DogDTO>): List<Dog> {
         return response.map { dogDTO ->
             fromResponseToDomainModel(dogDTO)
-        }.toList()
+        }
     }
 }

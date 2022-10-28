@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -66,6 +67,26 @@ class DogsListFragment : Fragment() {
                 is DataState.Success -> showData(dataState.data)
             }
         }
+
+        viewModel.addDogStatus.observe(viewLifecycleOwner) { dataState ->
+            when (dataState) {
+                is DataState.Error -> showSimpleError(dataState.error)
+                DataState.Loading -> showLoading()
+                is DataState.Success -> handleAddDog(dataState.data)
+            }
+        }
+    }
+
+    private fun handleAddDog(success: Boolean) {
+        if (success) {
+            viewModel.refreshData()
+        }
+    }
+
+    private fun showSimpleError(@StringRes error: Int) {
+        binding.textViewErrorList.showView(false)
+        binding.progressBarList.showView(false)
+        Toast.makeText(requireContext(), error, Toast.LENGTH_SHORT).show()
     }
 
     private fun showError(@StringRes error: Int) {
@@ -77,7 +98,6 @@ class DogsListFragment : Fragment() {
 
     private fun showLoading() {
         binding.textViewErrorList.showView(false)
-        binding.recyclerViewDogsList.showView(false)
         binding.progressBarList.showView()
     }
 
@@ -91,7 +111,12 @@ class DogsListFragment : Fragment() {
     private fun onAction(action: DogsListAdapter.Action) {
         when (action) {
             is DogsListAdapter.Action.OnClick -> openDog(action.dog)
+            is DogsListAdapter.Action.OnLongClick -> addDogToUser(action.dogId)
         }
+    }
+
+    private fun addDogToUser(dogId: Long) {
+        viewModel.addDog(dogId)
     }
 
     private fun openDog(dog: Dog) {

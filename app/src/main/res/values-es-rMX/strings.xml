@@ -25,13 +25,26 @@
     <string name="error_passwords_do_not_match">Las contraseñas no coinciden</string>
     <string name="there_was_an_error">Ocurrió un error</string>
     <string name="take_photo_button">Botón de tomar una foto</string>
+    <string name="show_dogs_list_button">Botón mostrar lista de perros</string>
+    <string name="open_settings_button">Botón abrir configuración de la app</string>
+
     <string name="logout">Cerrar sesión</string>
     <string name="do_you_wanna_logout">Quieres cerrar la sesión?</string>
+
     <string name="error_signing_up">Error al registrarse</string>
     <string name="error_login_in">Error al iniciar sesión</string>
-    <string name="user_already_exist">El usuario ya existe</string>
-    <string name="user_not_found">El usuario no existe</string>
+    <string name="error_user_already_exist">El usuario ya existe</string>
+    <string name="error_user_not_found">El usuario no existe</string>
     <string name="error_unkown">Ocurrió un error desconocido</string>
     <string name="error_no_internet_conecction">No hay conexión</string>
     <string name="error_wrong_user_or_password">Usuario o contraseña incorrectos</string>
+    <string name="error_adding_dog">Ocurrió un error al agregar el perro</string>
+    <string name="error_taking_photo">Error al tomar la foto</string>
+
+    <string name="should_accept_camera_permission">Se necesita el permiso para usar la cámara</string>
+    <string name="accept_camera_permission">Permiso de cámara necesario</string>
+    <string name="camera_permissions_its_needed">El permiso de la cámara es necesario para encontrar y agregar nuevos perros a tu %s.</string>
+
+    <string name="image_taken_by_the_camera">Foto tomada por la cámara</string>
+
 </resources>

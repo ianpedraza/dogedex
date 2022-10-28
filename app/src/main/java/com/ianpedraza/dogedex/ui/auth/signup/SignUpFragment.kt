@@ -13,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import com.ianpedraza.dogedex.R
 import com.ianpedraza.dogedex.databinding.FragmentSignUpBinding
 import com.ianpedraza.dogedex.domain.models.User
+import com.ianpedraza.dogedex.framework.api.ApiServiceInterceptor
 import com.ianpedraza.dogedex.utils.DataState
 import com.ianpedraza.dogedex.utils.SharedPreferencesUtils
 import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.showView
@@ -122,6 +123,7 @@ class SignUpFragment : Fragment() {
 
     private fun showSuccess(user: User) {
         sharedPreferencesUtils.saveUser(user)
+        ApiServiceInterceptor.setAuthenticationToken(user.authenticationToken)
         binding.progressBarSignUp.showView(false)
         binding.buttonSignup.showView(false)
         navController.navigate(SignUpFragmentDirections.actionGlobalHomeFragment())

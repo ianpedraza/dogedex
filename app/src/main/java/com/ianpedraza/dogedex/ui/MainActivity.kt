@@ -8,6 +8,7 @@ import androidx.navigation.ui.NavigationUI
 import com.ianpedraza.dogedex.NavGraphDirections
 import com.ianpedraza.dogedex.R
 import com.ianpedraza.dogedex.databinding.ActivityMainBinding
+import com.ianpedraza.dogedex.framework.api.ApiServiceInterceptor
 import com.ianpedraza.dogedex.utils.SharedPreferencesUtils
 import com.ianpedraza.dogedex.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -44,7 +45,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkUserLoggedIn() {
-        sharedPreferencesUtils.getUser() ?: return
+        val user = sharedPreferencesUtils.getUser() ?: return
+        ApiServiceInterceptor.setAuthenticationToken(user.authenticationToken)
         navController.navigate(NavGraphDirections.actionGlobalHomeFragment())
     }
 

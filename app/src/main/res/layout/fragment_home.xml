@@ -6,6 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewViewCamera"
+        android:layout_width="@dimen/size_constrained"
+        android:layout_height="@dimen/size_constrained"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabHomeTakePhoto"
         android:layout_width="wrap_content"
@@ -13,12 +22,14 @@
         android:layout_marginBottom="@dimen/margin_default"
         android:clickable="true"
         android:contentDescription="@string/take_photo_button"
+        android:enabled="false"
         android:focusable="true"
         android:src="@drawable/ic_camera"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        tools:enabled="true" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabHomeDogsList"
@@ -26,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_default"
         android:clickable="true"
-        android:contentDescription="@string/take_photo_button"
+        android:contentDescription="@string/show_dogs_list_button"
         android:focusable="true"
         android:src="@drawable/ic_list"
         app:fabSize="mini"
@@ -40,7 +51,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
         android:clickable="true"
-        android:contentDescription="@string/take_photo_button"
+        android:contentDescription="@string/open_settings_button"
         android:focusable="true"
         android:src="@drawable/ic_settings"
         app:fabSize="mini"

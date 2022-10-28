@@ -2,12 +2,15 @@ package com.ianpedraza.dogedex.ui.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ianpedraza.dogedex.R
 import com.ianpedraza.dogedex.databinding.ItemListDogsBinding
 import com.ianpedraza.dogedex.domain.models.Dog
 import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.fromUrl
+import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.showView
 
 class DogsListAdapter(
     private val onAction: (Action) -> Unit
@@ -37,14 +40,38 @@ class DogsListAdapter(
 
         fun bind(item: Dog, onAction: (Action) -> Unit) {
             with(binding) {
-                imageViewDogItem.fromUrl(item.imageUrl)
-                root.setOnClickListener { onAction(Action.OnClick(item)) }
+                if (item.inCollection) {
+                    textViewDogItem.showView(false)
+
+                    imageViewDogItem.fromUrl(item.imageUrl)
+                    imageViewDogItem.showView()
+
+                    constraintLayoutDogItem.background =
+                        ContextCompat.getDrawable(root.context, R.drawable.dog_list_item_background)
+
+                    root.setOnClickListener { onAction(Action.OnClick(item)) }
+                } else {
+                    imageViewDogItem.showView(false)
+
+                    textViewDogItem.text =
+                        textViewDogItem.context.getString(R.string.format_index, item.index)
+                    textViewDogItem.showView()
+
+                    constraintLayoutDogItem.background =
+                        ContextCompat.getDrawable(root.context, R.drawable.bg_dog_item_unknown)
+
+                    root.setOnLongClickListener {
+                        onAction(Action.OnLongClick(item.id))
+                        true
+                    }
+                }
             }
         }
     }
 
     sealed class Action {
         data class OnClick(val dog: Dog) : Action()
+        data class OnLongClick(val dogId: Long) : Action()
     }
 }
 

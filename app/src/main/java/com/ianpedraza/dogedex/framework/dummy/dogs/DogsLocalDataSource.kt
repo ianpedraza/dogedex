@@ -5,6 +5,6 @@ import com.ianpedraza.dogedex.domain.models.Dog
 
 class DogsLocalDataSource : DogsDataSource {
     override suspend fun getAll(): List<Dog> {
-        return DummyData.dogsList
+        return DummyData.getAllDogs()
     }
 }

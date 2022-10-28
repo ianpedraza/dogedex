@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_listFragment"
             app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_photoViewerFragment"
+            app:destination="@id/photoViewerFragment" />
     </fragment>
 
     <fragment
@@ -70,6 +73,15 @@
             app:destination="@id/loginFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/photoViewerFragment"
+        android:name="com.ianpedraza.dogedex.ui.photo.PhotoViewerFragment"
+        android:label="fragment_photo_viewer"
+        tools:layout="@layout/fragment_photo_viewer" >
+        <argument
+            android:name="photoUri"
+            app:argType="android.net.Uri" />
     </fragment>
 
 </navigation>
