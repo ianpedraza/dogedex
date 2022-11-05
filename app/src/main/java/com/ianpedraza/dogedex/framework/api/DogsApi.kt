@@ -1,6 +1,7 @@
 package com.ianpedraza.dogedex.framework.api
 
 import com.ianpedraza.dogedex.framework.api.auth.response.AuthResponse
+import com.ianpedraza.dogedex.framework.api.dogs.response.DogApiResponse
 import com.ianpedraza.dogedex.framework.api.dogs.response.DogsListResponse
 import com.ianpedraza.dogedex.framework.api.dto.AddDogToUserDTO
 import com.ianpedraza.dogedex.framework.api.dto.LoginDTO
@@ -9,6 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
+import retrofit2.http.Query
 
 interface DogsApi {
     @GET("dogs")
@@ -36,4 +38,10 @@ interface DogsApi {
     @Headers("${ApiServiceInterceptor.NEEDS_AUTH_HEADER_KEY}: true")
     @GET("get_user_dogs")
     suspend fun getUserDogs(): DogsListResponse
+
+    @GET("find_dog_by_ml_id")
+    suspend fun getDogByMlId(
+        @Query("ml_id")
+        mlDogId: String
+    ): DogApiResponse
 }

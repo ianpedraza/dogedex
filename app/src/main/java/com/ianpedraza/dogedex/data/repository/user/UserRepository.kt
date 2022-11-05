@@ -5,7 +5,7 @@ import com.ianpedraza.dogedex.utils.DataState
 import kotlinx.coroutines.flow.Flow
 
 interface UserRepository {
-    suspend fun addDogToUser(dogId: Long): Flow<DataState<Boolean>>
-    suspend fun getUserDogs(): Flow<DataState<List<Dog>>>
-    suspend fun getDogsCollection(): Flow<DataState<List<Dog>>>
+    fun addDogToUser(dogId: Long): Flow<DataState<Boolean>>
+    fun getUserDogs(): Flow<DataState<List<Dog>>>
+    fun getDogsCollection(): Flow<DataState<List<Dog>>>
 }

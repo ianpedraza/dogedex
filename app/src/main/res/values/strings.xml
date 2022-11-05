@@ -47,4 +47,5 @@
     <string name="camera_permissions_its_needed">The camera\'s permission it\'s needed to find and add new dogs to your %s.</string>
     <string name="error_taking_photo">Error taking photo</string>
     <string name="image_taken_by_the_camera">Image taken by the camera</string>
+    <string name="error_invalid_bitmap">Invalid bitmap</string>
 </resources>

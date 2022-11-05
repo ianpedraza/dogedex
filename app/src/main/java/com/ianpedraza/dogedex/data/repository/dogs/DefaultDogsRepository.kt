@@ -9,6 +9,9 @@ import kotlinx.coroutines.flow.Flow
 class DefaultDogsRepository(
     private val dataSource: DogsDataSource
 ) : DogsRepository {
-    override suspend fun getAll(): Flow<DataState<List<Dog>>> =
+    override fun getAll(): Flow<DataState<List<Dog>>> =
         makeNetworkCall { dataSource.getAll() }
+
+    override fun getDogByMlId(mlDogId: String): Flow<DataState<Dog>> =
+        makeNetworkCall { dataSource.getDogByMlId(mlDogId) }
 }

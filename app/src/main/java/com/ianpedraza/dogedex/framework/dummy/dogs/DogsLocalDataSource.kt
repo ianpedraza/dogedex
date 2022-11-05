@@ -7,4 +7,8 @@ class DogsLocalDataSource : DogsDataSource {
     override suspend fun getAll(): List<Dog> {
         return DummyData.getAllDogs()
     }
+
+    override suspend fun getDogByMlId(mlDogId: String): Dog {
+        TODO("Not yet implemented")
+    }
 }

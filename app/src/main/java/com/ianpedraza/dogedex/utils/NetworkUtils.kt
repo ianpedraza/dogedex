@@ -16,7 +16,7 @@ class NetworkUtils {
         private const val ERROR_USER_NOT_FOUND = "user_not_found"
         private const val ERROR_ADDING_DOG = "error_adding_dog"
 
-        suspend fun <T> makeNetworkCall(
+        fun <T> makeNetworkCall(
             call: suspend () -> T
         ): Flow<DataState<T>> = flow {
             emit(DataState.Loading)

@@ -1,11 +1,13 @@
 package com.ianpedraza.dogedex.ui.home
 
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts.*
+import androidx.activity.result.contract.ActivityResultContracts.RequestMultiplePermissions
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AlertDialog
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageAnalysis
@@ -16,16 +18,22 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.ianpedraza.dogedex.R
 import com.ianpedraza.dogedex.databinding.FragmentHomeBinding
+import com.ianpedraza.dogedex.domain.models.Dog
+import com.ianpedraza.dogedex.ml.DogRecognition
+import com.ianpedraza.dogedex.utils.DataState
 import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.createOutputDirectory
 import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.showToast
+import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.showView
 import com.ianpedraza.dogedex.utils.permissions.CheckPermissionsManager
 import com.ianpedraza.dogedex.utils.permissions.CheckPermissionsUtil
 import com.ianpedraza.dogedex.utils.permissions.areAllPermissionsGranted
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
@@ -37,7 +45,7 @@ class HomeFragment : Fragment() {
 
     private val navController: NavController get() = findNavController()
 
-    private val viewModel: CameraViewModel by viewModels()
+    private val viewModel: HomeViewModel by viewModels()
 
     private val permissions = arrayOf(android.Manifest.permission.CAMERA)
 
@@ -82,10 +90,93 @@ class HomeFragment : Fragment() {
 
         viewModel.takenPhoto.observe(viewLifecycleOwner) { takenPhoto ->
             takenPhoto?.let {
-                openPhoto(takenPhoto)
-                viewModel.handledTakenPhoto()
+                handlePhoto(takenPhoto)
             }
         }
+
+        viewModel.imageRecognizedRT.observe(viewLifecycleOwner) { dataState ->
+            dataState?.let {
+                handleImageRecognizedRT(dataState)
+            }
+        }
+
+        viewModel.imageRecognized.observe(viewLifecycleOwner) { dataState ->
+            dataState?.let {
+                handleImageRecognized(dataState)
+            }
+        }
+
+        viewModel.dogRecognized.observe(viewLifecycleOwner) { dataState ->
+            dataState?.let {
+                handleDogRecognized(dataState)
+            }
+        }
+    }
+
+    private fun handleImageRecognized(dataState: DataState<DogRecognition>) {
+        when (dataState) {
+            is DataState.Error -> showError(dataState.error)
+            DataState.Loading -> showLoading()
+            is DataState.Success -> handleSuccessImageRecognition(dataState.data)
+        }
+
+        viewModel.handledImageRecognized()
+    }
+
+    private fun handleSuccessImageRecognition(dogRecognition: DogRecognition) {
+        binding.progressBarHome.showView(false)
+        viewModel.getDogByMlId(dogRecognition.id)
+    }
+
+    private fun handleImageRecognizedRT(dataState: DataState<DogRecognition>) {
+        when (dataState) {
+            is DataState.Error -> showError(dataState.error)
+            DataState.Loading -> showLoading()
+            is DataState.Success -> handleSuccessImageRecognitionRT(dataState.data)
+        }
+
+        viewModel.handledImageRecognizedRT()
+    }
+
+    private fun handleSuccessImageRecognitionRT(dogRecognition: DogRecognition) {
+        binding.progressBarHome.showView(false)
+        enableTakePhotoButton(dogRecognition)
+    }
+
+    private fun handleDogRecognized(dataState: DataState<Dog>) {
+        when (dataState) {
+            is DataState.Error -> showError(dataState.error)
+            DataState.Loading -> showLoading()
+            is DataState.Success -> goToDogDetail(dataState.data)
+        }
+
+        viewModel.handledDogDetail()
+    }
+
+    private fun showError(@StringRes error: Int) {
+        binding.progressBarHome.showView(false)
+        requireContext().showToast(error)
+    }
+
+    private fun showLoading() {
+        binding.progressBarHome.showView()
+    }
+
+    private fun goToDogDetail(data: Dog) {
+        navController.navigate(
+            HomeFragmentDirections.actionHomeFragmentToDogDetailFragment(
+                data,
+                true
+            )
+        )
+        binding.progressBarHome.showView(false)
+    }
+
+    private fun handlePhoto(photoUri: Uri) {
+        val bitmap = BitmapFactory.decodeFile(photoUri.path)
+        viewModel.recognizeImageRT(bitmap)
+
+        viewModel.handledTakenPhoto()
     }
 
     private val permissionManager = object : CheckPermissionsManager {
@@ -153,8 +244,7 @@ class HomeFragment : Fragment() {
                 .build()
 
             imageAnalysis.setAnalyzer(cameraExecutor) { imageProxy ->
-                val rotationDegrees = imageProxy.imageInfo.rotationDegrees
-                imageProxy.close()
+                viewModel.recognizeImageRT(imageProxy)
             }
 
             cameraProvider.bindToLifecycle(
@@ -165,6 +255,12 @@ class HomeFragment : Fragment() {
                 imageAnalysis
             )
         }, ContextCompat.getMainExecutor(requireContext()))
+    }
+
+    private fun enableTakePhotoButton(dogRecognition: DogRecognition) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            binding.fabHomeTakePhoto.isEnabled = dogRecognition.confidence >= RECOGNITION_MIN_VALUE
+        }
     }
 
     private fun takePhoto() {
@@ -188,11 +284,15 @@ class HomeFragment : Fragment() {
 
     private fun openPhoto(photoUri: Uri) {
         val action = HomeFragmentDirections.actionHomeFragmentToPhotoViewerFragment(photoUri)
-        findNavController().navigate(action)
+        navController.navigate(action)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         if (::cameraExecutor.isInitialized) cameraExecutor.shutdown()
+    }
+
+    companion object {
+        const val RECOGNITION_MIN_VALUE = 0.6
     }
 }

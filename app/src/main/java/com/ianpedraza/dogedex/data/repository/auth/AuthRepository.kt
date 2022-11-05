@@ -5,6 +5,6 @@ import com.ianpedraza.dogedex.utils.DataState
 import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
-    suspend fun signup(email: String, password: String): Flow<DataState<User>>
-    suspend fun login(email: String, password: String): Flow<DataState<User>>
+    fun signup(email: String, password: String): Flow<DataState<User>>
+    fun login(email: String, password: String): Flow<DataState<User>>
 }

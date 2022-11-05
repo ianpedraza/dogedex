@@ -12,13 +12,13 @@ class DefaultUserRepository(
     private val userDataSource: UserDataSource,
     private val dogsDataSource: DogsDataSource
 ) : UserRepository {
-    override suspend fun addDogToUser(dogId: Long): Flow<DataState<Boolean>> =
+    override fun addDogToUser(dogId: Long): Flow<DataState<Boolean>> =
         makeNetworkCall { userDataSource.addDogToUser(dogId) }
 
-    override suspend fun getUserDogs(): Flow<DataState<List<Dog>>> =
+    override fun getUserDogs(): Flow<DataState<List<Dog>>> =
         makeNetworkCall { userDataSource.getUserDogs() }
 
-    override suspend fun getDogsCollection(): Flow<DataState<List<Dog>>> {
+    override fun getDogsCollection(): Flow<DataState<List<Dog>>> {
         return makeNetworkCall {
             val allDogs = dogsDataSource.getAll()
             val userDogs = userDataSource.getUserDogs()

@@ -6,6 +6,6 @@ import com.ianpedraza.dogedex.utils.DataState
 import kotlinx.coroutines.flow.Flow
 
 class LoginUseCase(private val repository: AuthRepository) {
-    suspend operator fun invoke(email: String, password: String): Flow<DataState<User>> =
+    operator fun invoke(email: String, password: String): Flow<DataState<User>> =
         repository.login(email, password)
 }

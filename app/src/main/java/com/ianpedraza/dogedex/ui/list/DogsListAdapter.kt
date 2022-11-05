@@ -59,11 +59,6 @@ class DogsListAdapter(
 
                     constraintLayoutDogItem.background =
                         ContextCompat.getDrawable(root.context, R.drawable.bg_dog_item_unknown)
-
-                    root.setOnLongClickListener {
-                        onAction(Action.OnLongClick(item.id))
-                        true
-                    }
                 }
             }
         }
@@ -71,7 +66,6 @@ class DogsListAdapter(
 
     sealed class Action {
         data class OnClick(val dog: Dog) : Action()
-        data class OnLongClick(val dogId: Long) : Action()
     }
 }
 

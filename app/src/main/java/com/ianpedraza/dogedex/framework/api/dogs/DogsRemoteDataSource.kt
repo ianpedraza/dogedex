@@ -17,4 +17,11 @@ class DogsRemoteDataSource(
             mapper.fromResponseListToDomainModelList(response.data.dogs)
         }
     }
+
+    override suspend fun getDogByMlId(mlDogId: String): Dog {
+        return withContext(Dispatchers.IO) {
+            val response = service.getDogByMlId(mlDogId)
+            mapper.fromResponseToDomainModel(response.data.dog)
+        }
+    }
 }

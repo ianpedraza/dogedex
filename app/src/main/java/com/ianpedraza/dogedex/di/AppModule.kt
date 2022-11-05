@@ -18,11 +18,15 @@ import com.ianpedraza.dogedex.framework.api.DogsApi
 import com.ianpedraza.dogedex.framework.api.auth.AuthRemoteDataSource
 import com.ianpedraza.dogedex.framework.api.dogs.DogsRemoteDataSource
 import com.ianpedraza.dogedex.framework.api.user.UserRemoteDataSource
+import com.ianpedraza.dogedex.ml.Classifier
+import com.ianpedraza.dogedex.ml.ClassifierRepository
 import com.ianpedraza.dogedex.usecases.AddDogToUserUseCase
 import com.ianpedraza.dogedex.usecases.GetAllDogsUseCase
+import com.ianpedraza.dogedex.usecases.GetDogByMlIdUseCase
 import com.ianpedraza.dogedex.usecases.GetDogsCollectionUseCase
 import com.ianpedraza.dogedex.usecases.GetUserDogs
 import com.ianpedraza.dogedex.usecases.LoginUseCase
+import com.ianpedraza.dogedex.usecases.RecognizeImageUseCase
 import com.ianpedraza.dogedex.usecases.SignUpUseCase
 import com.ianpedraza.dogedex.utils.SharedPreferencesUtils
 import dagger.Module
@@ -31,9 +35,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import org.tensorflow.lite.support.common.FileUtil
 import retrofit2.Converter.*
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.nio.MappedByteBuffer
 import javax.inject.Singleton
 
 @Module
@@ -176,4 +182,45 @@ object AppModule {
     fun provideGetDogsCollectionUseCase(
         repository: UserRepository
     ): GetDogsCollectionUseCase = GetDogsCollectionUseCase(repository)
+
+    @Singleton
+    @Provides
+    fun provideGetDogByMlIdUseCase(
+        repository: DogsRepository
+    ): GetDogByMlIdUseCase = GetDogByMlIdUseCase(repository)
+
+    /* Recognize Image */
+
+    @Singleton
+    @Provides
+    fun provideTfLiteModel(
+        @ApplicationContext
+        context: Context
+    ): MappedByteBuffer = FileUtil.loadMappedFile(context, "model.tflite")
+
+    @Singleton
+    @Provides
+    fun provideLabels(
+        @ApplicationContext
+        context: Context
+    ): List<String> = FileUtil.loadLabels(context, "labels.txt")
+
+    @Singleton
+    @Provides
+    fun provideClassifier(
+        tfLiteModel: MappedByteBuffer,
+        labels: List<String>
+    ) = Classifier(tfLiteModel, labels)
+
+    @Singleton
+    @Provides
+    fun provideClassifierRepository(
+        classifier: Classifier
+    ): ClassifierRepository = ClassifierRepository(classifier)
+
+    @Singleton
+    @Provides
+    fun provideRecognizeImageUseCase(
+        repository: ClassifierRepository
+    ): RecognizeImageUseCase = RecognizeImageUseCase(repository)
 }

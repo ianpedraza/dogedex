@@ -5,6 +5,6 @@ import com.ianpedraza.dogedex.domain.models.Dog
 import com.ianpedraza.dogedex.utils.DataState
 import kotlinx.coroutines.flow.Flow
 
-class GetAllDogsUseCase(private val repository: DogsRepository) {
-    operator fun invoke(): Flow<DataState<List<Dog>>> = repository.getAll()
+class GetDogByMlIdUseCase(private val repository: DogsRepository) {
+    operator fun invoke(mlDogId: String): Flow<DataState<Dog>> = repository.getDogByMlId(mlDogId)
 }

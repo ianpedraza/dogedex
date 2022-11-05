@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_homeFragment_to_photoViewerFragment"
             app:destination="@id/photoViewerFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_dogDetailFragment"
+            app:destination="@id/dogDetailFragment" />
     </fragment>
 
     <fragment
@@ -45,6 +48,10 @@
         <argument
             android:name="dog"
             app:argType="com.ianpedraza.dogedex.domain.models.Dog" />
+        <argument
+            android:name="isRecognized"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
 
     <fragment
