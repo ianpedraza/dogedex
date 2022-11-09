@@ -1,7 +1,7 @@
 package com.ianpedraza.dogedex.ui.list
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ianpedraza.dogedex.domain.models.Dog
@@ -19,8 +19,8 @@ class DogsListViewModel
     private val getDogsCollectionUseCase: GetDogsCollectionUseCase
 ) : ViewModel() {
 
-    private val _dogsList = MutableLiveData<DataState<List<Dog>>>()
-    val dogsList: LiveData<DataState<List<Dog>>> get() = _dogsList
+    private val _dogsList = mutableStateOf<DataState<List<Dog>>?>(null)
+    val dogsList: State<DataState<List<Dog>>?> get() = _dogsList
 
     init {
         refreshData()

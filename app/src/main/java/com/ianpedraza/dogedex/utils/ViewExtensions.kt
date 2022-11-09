@@ -1,17 +1,23 @@
 package com.ianpedraza.dogedex.utils
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.StringRes
+import androidx.lifecycle.AndroidViewModel
 import coil.load
 import com.ianpedraza.dogedex.R
 import java.io.File
 
 class ViewExtensions {
     companion object {
+        fun AndroidViewModel.getString(@StringRes resId: Int): String {
+            return getApplication<Application>().getString(resId)
+        }
+
         fun Context.showToast(@StringRes message: Int) {
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
         }

@@ -48,4 +48,7 @@
     <string name="error_taking_photo">Error taking photo</string>
     <string name="image_taken_by_the_camera">Image taken by the camera</string>
     <string name="error_invalid_bitmap">Invalid bitmap</string>
+    <string name="error_dialog_title">Oops, something went wrong</string>
+    <string name="back_button">Back button</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>

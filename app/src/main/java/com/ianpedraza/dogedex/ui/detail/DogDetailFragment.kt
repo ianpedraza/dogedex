@@ -56,11 +56,11 @@ class DogDetailFragment : Fragment() {
     }
 
     private fun subscribeObservers() {
-        viewModel.addDogStatus.observe(viewLifecycleOwner) { dataState ->
+        /* viewModel.addDogStatus.observe(viewLifecycleOwner) { dataState ->
             dataState?.let {
                 handleAddDog(dataState)
             }
-        }
+        } */
     }
 
     private fun handleAddDog(dataState: DataState<Boolean>) {
@@ -72,7 +72,7 @@ class DogDetailFragment : Fragment() {
     }
 
     private fun goBackToCamera() {
-        viewModel.handledAddDog()
+        viewModel.resetAddSogStatus()
         navController.navigateUp()
     }
 

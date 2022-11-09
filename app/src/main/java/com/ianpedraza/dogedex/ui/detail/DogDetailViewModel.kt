@@ -1,7 +1,7 @@
 package com.ianpedraza.dogedex.ui.detail
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import androidx.compose.runtime.State
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ianpedraza.dogedex.usecases.AddDogToUserUseCase
@@ -19,10 +19,10 @@ constructor(
     private val addDogToUserUseCase: AddDogToUserUseCase
 ) : ViewModel() {
 
-    private val _addDogStatus = MutableLiveData<DataState<Boolean>?>()
-    val addDogStatus: LiveData<DataState<Boolean>?> = _addDogStatus
+    private val _addDogStatus = mutableStateOf<DataState<Boolean>?>(null)
+    val addDogStatus: State<DataState<Boolean>?> get() = _addDogStatus
 
-    fun handledAddDog() {
+    fun resetAddSogStatus() {
         _addDogStatus.value = null
     }
 

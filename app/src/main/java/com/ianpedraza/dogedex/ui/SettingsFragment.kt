@@ -55,6 +55,6 @@ class SettingsFragment : Fragment() {
 
     private fun logout() {
         sharedPreferencesUtils.removeUser()
-        navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToLoginFragment())
+        navController.navigate(SettingsFragmentDirections.actionSettingsFragmentToAuthFragment())
     }
 }

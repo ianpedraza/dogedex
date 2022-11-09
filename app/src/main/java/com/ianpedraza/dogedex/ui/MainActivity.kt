@@ -27,7 +27,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val topLevelFragments = setOf(R.id.loginFragment, R.id.homeFragment)
+    private val topLevelFragments = setOf(R.id.authFragment, R.id.homeFragment)
 
     @Inject
     lateinit var sharedPreferencesUtils: SharedPreferencesUtils

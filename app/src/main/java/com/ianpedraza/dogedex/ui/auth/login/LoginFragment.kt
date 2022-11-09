@@ -1,30 +1,25 @@
 package com.ianpedraza.dogedex.ui.auth.login
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.StringRes
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
-import com.ianpedraza.dogedex.R
-import com.ianpedraza.dogedex.databinding.FragmentLoginBinding
 import com.ianpedraza.dogedex.domain.models.User
 import com.ianpedraza.dogedex.framework.api.ApiServiceInterceptor
+import com.ianpedraza.dogedex.ui.theme.DogedexTheme
+import com.ianpedraza.dogedex.utils.ComposeFragmentExtensions.Companion.contentView
 import com.ianpedraza.dogedex.utils.DataState
 import com.ianpedraza.dogedex.utils.SharedPreferencesUtils
-import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.showView
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
-
-    private var _binding: FragmentLoginBinding? = null
-    private val binding: FragmentLoginBinding get() = _binding!!
 
     private val viewModel: LoginViewModel by viewModels()
 
@@ -37,90 +32,50 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    ): ComposeView = contentView {
+        val uiState by viewModel.uiState
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        setupUI()
-        subscribeObservers()
-    }
-
-    private fun setupUI() {
-        binding.buttonLoginRegister.setOnClickListener {
-            navController.navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment())
+        if (uiState.loginStatus is DataState.Success) {
+            showSuccess((uiState.loginStatus as DataState.Success<User>).data)
         }
 
-        binding.buttonLogin.setOnClickListener {
-            val email = binding.textInputEditTextLoginEmail.text.toString()
-            val password = binding.textInputEditTextLoginPassword.text.toString()
-            viewModel.validateFields(email, password)
+        DogedexTheme {
+            LoginScreen(
+                uiState = uiState,
+                onUiEvent = ::handleOnUiEvent,
+                onNavigationEvent = ::handleOnNavigationEvent
+            )
         }
     }
 
-    private fun subscribeObservers() {
-        viewModel.emailError.observe(viewLifecycleOwner) { emailError ->
-            binding.textInputLayoutLoginEmail.error = if (emailError) {
-                getString(R.string.error_email_is_not_valid)
-            } else {
-                null
-            }
-        }
-
-        viewModel.passwordError.observe(viewLifecycleOwner) { passwordError ->
-            binding.textInputLayoutLoginPassword.error = if (passwordError) {
-                getString(R.string.error_password_is_not_valid)
-            } else {
-                null
-            }
-        }
-
-        viewModel.fieldsValidated.observe(viewLifecycleOwner) { fields ->
-            fields?.let {
-                viewModel.login(fields.first, fields.second)
-                viewModel.onFieldsValidated()
-            }
-        }
-
-        viewModel.loginStatus.observe(viewLifecycleOwner) { dataState ->
-            dataState?.let {
-                when (dataState) {
-                    is DataState.Error -> showError(dataState.error)
-                    DataState.Loading -> showLoading()
-                    is DataState.Success -> showSuccess(dataState.data)
-                }
-                viewModel.onLoginHandled()
-            }
+    private fun handleOnUiEvent(event: LoginUiEvent) {
+        when (event) {
+            LoginUiEvent.OnErrorDialogDismiss -> onErrorDialogDismiss()
+            is LoginUiEvent.OnLoginButtonClicked -> onLoginButtonClicked(event.email, event.password)
         }
     }
 
-    private fun showError(@StringRes error: Int) {
-        binding.progressBarLogin.showView(false)
-        binding.buttonLogin.showView()
-        showErrorDialog(error)
+    private fun handleOnNavigationEvent(event: LoginNavigationEvent) {
+        when (event) {
+            LoginNavigationEvent.RegisterButtonClicked -> onRegisterButtonClicked()
+        }
     }
 
-    private fun showErrorDialog(@StringRes error: Int) {
-        AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.there_was_an_error))
-            .setMessage(error)
-            .setPositiveButton(android.R.string.ok, null)
-            .create()
-            .show()
+    private fun onErrorDialogDismiss() {
+        viewModel.onLoginHandled()
     }
 
-    private fun showLoading() {
-        binding.buttonLogin.showView(false)
-        binding.progressBarLogin.showView()
+    private fun onLoginButtonClicked(email: String, password: String) {
+        viewModel.login(email, password)
+    }
+
+    private fun onRegisterButtonClicked() {
+        // navController.navigate(LoginFragmentDirections.actionLoginFragmentToSignUpFragment())
     }
 
     private fun showSuccess(user: User) {
         sharedPreferencesUtils.saveUser(user)
         ApiServiceInterceptor.setAuthenticationToken(user.authenticationToken)
-        binding.progressBarLogin.showView(false)
-        binding.buttonLogin.showView(false)
-        navController.navigate(LoginFragmentDirections.actionGlobalHomeFragment())
+        // navController.navigate(LoginFragmentDirections.actionGlobalHomeFragment())
     }
 }

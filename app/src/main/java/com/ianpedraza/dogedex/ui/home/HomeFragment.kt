@@ -164,7 +164,7 @@ class HomeFragment : Fragment() {
 
     private fun goToDogDetail(data: Dog) {
         navController.navigate(
-            HomeFragmentDirections.actionHomeFragmentToDogDetailFragment(
+            HomeFragmentDirections.actionHomeFragmentToDogDetailComposeFragment(
                 data,
                 true
             )
