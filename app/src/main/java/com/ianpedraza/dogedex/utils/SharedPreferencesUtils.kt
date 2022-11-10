@@ -4,8 +4,12 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
 import com.ianpedraza.dogedex.domain.models.User
+import dagger.hilt.android.qualifiers.ApplicationContext
+import javax.inject.Inject
 
-class SharedPreferencesUtils(context: Context) {
+class SharedPreferencesUtils
+@Inject
+constructor(@ApplicationContext context: Context) {
 
     private val sharedPreferences: SharedPreferences
 

@@ -5,8 +5,11 @@ import com.ianpedraza.dogedex.domain.models.Dog
 import com.ianpedraza.dogedex.utils.DataState
 import com.ianpedraza.dogedex.utils.NetworkUtils.Companion.makeNetworkCall
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class DefaultDogsRepository(
+class DefaultDogsRepository
+@Inject
+constructor(
     private val dataSource: DogsDataSource
 ) : DogsRepository {
     override fun getAll(): Flow<DataState<List<Dog>>> =

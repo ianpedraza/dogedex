@@ -2,8 +2,11 @@ package com.ianpedraza.dogedex.framework.dummy.dogs
 
 import com.ianpedraza.dogedex.data.datasource.DogsDataSource
 import com.ianpedraza.dogedex.domain.models.Dog
+import javax.inject.Inject
 
-class DogsLocalDataSource : DogsDataSource {
+class DogsLocalDataSource
+@Inject
+constructor() : DogsDataSource {
     override suspend fun getAll(): List<Dog> {
         return DummyData.getAllDogs()
     }

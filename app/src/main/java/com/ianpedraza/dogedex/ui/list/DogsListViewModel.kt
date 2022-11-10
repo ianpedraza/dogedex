@@ -33,4 +33,8 @@ class DogsListViewModel
             }.launchIn(viewModelScope)
         }
     }
+
+    fun reset() {
+        _dogsList.value = null
+    }
 }

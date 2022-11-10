@@ -7,8 +7,11 @@ import com.ianpedraza.dogedex.utils.DataState
 import com.ianpedraza.dogedex.utils.DogCollectionUtils
 import com.ianpedraza.dogedex.utils.NetworkUtils.Companion.makeNetworkCall
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class DefaultUserRepository(
+class DefaultUserRepository
+@Inject
+constructor(
     private val userDataSource: UserDataSource,
     private val dogsDataSource: DogsDataSource
 ) : UserRepository {

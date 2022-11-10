@@ -2,8 +2,11 @@ package com.ianpedraza.dogedex.domain.mappers
 
 import com.ianpedraza.dogedex.domain.models.Dog
 import com.ianpedraza.dogedex.framework.api.dto.DogDTO
+import javax.inject.Inject
 
-class DogDTOMapper : EntityMapper<DogDTO, Dog> {
+class DogDTOMapper
+@Inject
+constructor() : EntityMapper<DogDTO, Dog> {
     override fun fromResponseToDomainModel(response: DogDTO): Dog {
         return Dog(
             id = response.id,

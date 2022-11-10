@@ -30,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.ianpedraza.dogedex.R
 import com.ianpedraza.dogedex.domain.models.Dog
@@ -42,10 +43,12 @@ private const val GRID_SPAN_COUNT = 3
 @ExperimentalMaterialApi
 @Composable
 fun DogListScreen(
-    dataState: DataState<List<Dog>>?,
     onAction: (Action) -> Unit,
-    onErrorDialogDismiss: () -> Unit
+    // I'm not a big fan of this, because the own composable edits the states
+    viewModel: DogsListViewModel = hiltViewModel()
 ) {
+    val dataState = viewModel.dogsList.value
+
     if (dataState is DataState.Success) {
         /*LazyColumn {
             items(dataState.data) {
@@ -68,7 +71,9 @@ fun DogListScreen(
     }
 
     if (dataState is DataState.Error) {
-        ErrorDialog(dataState.error, onErrorDialogDismiss)
+        ErrorDialog(dataState.error) {
+            viewModel.reset()
+        }
     }
 
     /*Scaffold(

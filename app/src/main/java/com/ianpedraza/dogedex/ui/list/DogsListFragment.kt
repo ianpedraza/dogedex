@@ -7,7 +7,6 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.ianpedraza.dogedex.domain.models.Dog
@@ -19,8 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class DogsListFragment : Fragment() {
 
-    private val viewModel: DogsListViewModel by viewModels()
-
     private val navController: NavController get() = findNavController()
 
     override fun onCreateView(
@@ -28,13 +25,9 @@ class DogsListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): ComposeView = contentView {
-        val state by viewModel.dogsList
-
         DogedexTheme {
             DogListScreen(
-                dataState = state,
-                onAction = ::onAction,
-                onErrorDialogDismiss = ::onErrorDialogDismiss
+                onAction = ::onAction
             )
         }
     }
@@ -51,9 +44,5 @@ class DogsListFragment : Fragment() {
                 dog
             )
         )
-    }
-
-    private fun onErrorDialogDismiss() {
-        navController.navigateUp()
     }
 }
