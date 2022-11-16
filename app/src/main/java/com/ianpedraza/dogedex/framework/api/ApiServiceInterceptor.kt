@@ -10,8 +10,10 @@ object ApiServiceInterceptor : Interceptor {
     private var authenticationToken: String? = null
 
     fun setAuthenticationToken(sessionToken: String) {
-        this.authenticationToken = sessionToken
+        authenticationToken = sessionToken
     }
+
+    fun getAuthenticationToken(): String? = authenticationToken
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()

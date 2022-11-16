@@ -14,6 +14,8 @@ import com.ianpedraza.dogedex.framework.api.dogs.DogsRemoteDataSource
 import com.ianpedraza.dogedex.framework.api.user.UserRemoteDataSource
 import com.ianpedraza.dogedex.ml.ClassifierRepository
 import com.ianpedraza.dogedex.ml.DefaultClassifierRepository
+import com.ianpedraza.dogedex.utils.emailvalidator.AuthValidator
+import com.ianpedraza.dogedex.utils.emailvalidator.DefaultAuthValidator
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -70,4 +72,10 @@ abstract class DataModule {
     abstract fun provideClassifierRepository(
         defaultClassifierRepository: DefaultClassifierRepository
     ): ClassifierRepository
+
+    @Singleton
+    @Binds
+    abstract fun provideAuthValidator(
+        authValidator: DefaultAuthValidator
+    ): AuthValidator
 }

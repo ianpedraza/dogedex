@@ -15,6 +15,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -72,7 +74,10 @@ private fun Content(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         AuthField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .semantics { testTag = "email-field" },
+            errorModifier = Modifier.semantics { testTag = "email-error" },
             value = email,
             label = stringResource(id = R.string.email),
             placeholder = stringResource(id = R.string.email),
@@ -83,7 +88,9 @@ private fun Content(
         AuthField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp),
+                .padding(top = 16.dp)
+                .semantics { testTag = "password-field" },
+            errorModifier = Modifier.semantics { testTag = "password-error" },
             value = password,
             label = stringResource(id = R.string.password),
             placeholder = stringResource(id = R.string.password),
@@ -95,7 +102,10 @@ private fun Content(
         Button(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp, bottom = 16.dp),
+                .padding(top = 16.dp, bottom = 16.dp)
+                .semantics {
+                    testTag = "login-button"
+                },
             onClick = { onUiEvent(LoginUiEvent.OnLoginButtonClicked(email, password)) }
         ) {
             Text(
@@ -116,7 +126,8 @@ private fun Content(
         TextButton(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
+                .semantics { testTag = "register-button" },
             onClick = { onNavigationEvent(LoginNavigationEvent.RegisterButtonClicked) }
         ) {
             Text(

@@ -26,7 +26,7 @@ class DogsListViewModel
         refreshData()
     }
 
-    fun refreshData() {
+    private fun refreshData() {
         viewModelScope.launch {
             getDogsCollectionUseCase().onEach { dataState ->
                 _dogsList.value = dataState

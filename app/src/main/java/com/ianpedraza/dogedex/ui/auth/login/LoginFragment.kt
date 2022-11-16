@@ -3,6 +3,7 @@ package com.ianpedraza.dogedex.ui.auth.login
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
@@ -33,7 +34,7 @@ class LoginFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): ComposeView = contentView {
-        val uiState by viewModel.uiState
+        val uiState by viewModel.uiState.collectAsState()
 
         if (uiState.loginStatus is DataState.Success) {
             showSuccess((uiState.loginStatus as DataState.Success<User>).data)
@@ -51,7 +52,10 @@ class LoginFragment : Fragment() {
     private fun handleOnUiEvent(event: LoginUiEvent) {
         when (event) {
             LoginUiEvent.OnErrorDialogDismiss -> onErrorDialogDismiss()
-            is LoginUiEvent.OnLoginButtonClicked -> onLoginButtonClicked(event.email, event.password)
+            is LoginUiEvent.OnLoginButtonClicked -> onLoginButtonClicked(
+                event.email,
+                event.password
+            )
         }
     }
 

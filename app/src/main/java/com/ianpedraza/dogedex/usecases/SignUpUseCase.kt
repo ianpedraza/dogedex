@@ -4,8 +4,13 @@ import com.ianpedraza.dogedex.data.repository.auth.AuthRepository
 import com.ianpedraza.dogedex.domain.models.User
 import com.ianpedraza.dogedex.utils.DataState
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class SignUpUseCase(private val repository: AuthRepository) {
+class SignUpUseCase
+@Inject
+constructor(
+    private val repository: AuthRepository
+) {
     operator fun invoke(
         email: String,
         password: String

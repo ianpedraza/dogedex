@@ -29,7 +29,7 @@ class NetworkUtils {
             } catch (e: HttpException) {
                 val errorMessage = when (e.code()) {
                     UNAUTHORIZED_ERROR_CODE -> R.string.error_wrong_user_or_password
-                    else -> R.string.error_unkown
+                    else -> R.string.error_unknown
                 }
                 emit(DataState.Error(errorMessage))
             } catch (e: Exception) {
@@ -39,7 +39,7 @@ class NetworkUtils {
                     ERROR_USER_ALREADY_EXIST_MSG -> R.string.error_user_already_exist
                     ERROR_USER_NOT_FOUND -> R.string.error_user_not_found
                     ERROR_ADDING_DOG -> R.string.error_adding_dog
-                    else -> R.string.error_unkown
+                    else -> R.string.error_unknown
                 }
                 emit(DataState.Error(errorMessage))
             }

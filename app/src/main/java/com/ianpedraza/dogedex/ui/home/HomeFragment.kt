@@ -25,6 +25,7 @@ import com.ianpedraza.dogedex.R
 import com.ianpedraza.dogedex.databinding.FragmentHomeBinding
 import com.ianpedraza.dogedex.domain.models.Dog
 import com.ianpedraza.dogedex.ml.DogRecognition
+import com.ianpedraza.dogedex.testuitls.EspressoIdlingResource
 import com.ianpedraza.dogedex.utils.DataState
 import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.createOutputDirectory
 import com.ianpedraza.dogedex.utils.ViewExtensions.Companion.showToast
@@ -106,7 +107,7 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewModel.dogRecognized.observe(viewLifecycleOwner) { dataState ->
+        viewModel.dogRecognized.observe(viewLifecycleOwner) {  dataState ->
             dataState?.let {
                 handleDogRecognized(dataState)
             }
@@ -229,6 +230,8 @@ class HomeFragment : Fragment() {
     private fun startCamera() {
         val cameraProvideFeature = ProcessCameraProvider.getInstance(requireContext())
 
+        EspressoIdlingResource.increment()
+
         cameraProvideFeature.addListener({
             val cameraProvider = cameraProvideFeature.get()
 
@@ -244,6 +247,7 @@ class HomeFragment : Fragment() {
                 .build()
 
             imageAnalysis.setAnalyzer(cameraExecutor) { imageProxy ->
+                EspressoIdlingResource.decrement()
                 viewModel.recognizeImageRT(imageProxy)
             }
 

@@ -5,7 +5,6 @@ import com.ianpedraza.dogedex.domain.mappers.DogDTOMapper
 import com.ianpedraza.dogedex.domain.models.Dog
 import com.ianpedraza.dogedex.framework.api.DogsApi
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 

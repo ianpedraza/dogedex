@@ -1,4 +1,4 @@
-package com.ianpedraza.dogedex
+package com.ianpedraza.dogedex.core
 
 import org.junit.Test
 

@@ -6,7 +6,6 @@ import com.ianpedraza.dogedex.domain.models.Dog
 import com.ianpedraza.dogedex.framework.api.DogsApi
 import com.ianpedraza.dogedex.framework.api.dto.AddDogToUserDTO
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 

@@ -37,7 +37,7 @@
     <string name="error_login_in">Error login in</string>
     <string name="error_user_already_exist">User already exist</string>
     <string name="error_user_not_found">User not found</string>
-    <string name="error_unkown">There\'s an unknown error</string>
+    <string name="error_unknown">There\'s an unknown error</string>
     <string name="error_no_internet_conecction">There\'s no internet connection</string>
     <string name="error_wrong_user_or_password">Wrong user or password</string>
     <string name="error_adding_dog">There was an error adding dog</string>
@@ -50,5 +50,6 @@
     <string name="error_invalid_bitmap">Invalid bitmap</string>
     <string name="error_dialog_title">Oops, something went wrong</string>
     <string name="back_button">Back button</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_auth">AuthActivity</string>
+    <string name="dog_collection">Dog collection</string>
 </resources>

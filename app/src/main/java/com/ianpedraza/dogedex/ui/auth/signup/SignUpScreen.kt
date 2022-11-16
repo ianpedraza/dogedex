@@ -14,12 +14,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.rememberNavController
 import com.ianpedraza.dogedex.R
 import com.ianpedraza.dogedex.ui.composables.AppTopBar
 import com.ianpedraza.dogedex.ui.composables.AuthField
@@ -37,14 +37,17 @@ fun SignUpScreen(
         topBar = {
             AppTopBar(
                 titleRes = R.string.app_name,
-                onBackPressed = {onNavigationEvent(SignUpNavigationEvent.OnBackPressed)}
+                onBackPressed = { onNavigationEvent(SignUpNavigationEvent.OnBackPressed) }
             )
         }
     ) { padding ->
         Column(
             modifier = Modifier.padding(padding)
         ) {
-            Content(uiState, onUiEvent)
+            Content(
+                uiState = uiState,
+                onUiEvent = onUiEvent
+            )
         }
     }
 }
@@ -105,7 +108,8 @@ private fun Content(
         Button(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 16.dp, bottom = 16.dp),
+                .padding(top = 16.dp, bottom = 16.dp)
+                .semantics { testTag = "signup-button" },
             onClick = {
                 onUiEvent(
                     SignUpUiEvent.OnSignUpButtonClicked(

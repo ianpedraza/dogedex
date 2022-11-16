@@ -56,8 +56,8 @@
             app:argType="com.ianpedraza.dogedex.domain.models.Dog" />
         <argument
             android:name="isRecognized"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
 
     <fragment
@@ -73,7 +73,7 @@
         android:id="@+id/photoViewerFragment"
         android:name="com.ianpedraza.dogedex.ui.photo.PhotoViewerFragment"
         android:label="fragment_photo_viewer"
-        tools:layout="@layout/fragment_photo_viewer" >
+        tools:layout="@layout/fragment_photo_viewer">
         <argument
             android:name="photoUri"
             app:argType="android.net.Uri" />
@@ -81,14 +81,14 @@
     <fragment
         android:id="@+id/dogDetailComposeFragment"
         android:name="com.ianpedraza.dogedex.ui.detail.DogDetailComposeFragment"
-        android:label="DogDetailComposeActivity" >
+        android:label="DogDetailComposeActivity">
         <argument
             android:name="dog"
             app:argType="com.ianpedraza.dogedex.domain.models.Dog" />
         <argument
             android:name="isRecognized"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
     </fragment>
 
     <fragment

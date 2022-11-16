@@ -13,6 +13,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 @Composable
 fun AuthField(
     modifier: Modifier = Modifier,
+    errorModifier: Modifier = Modifier,
     value: String,
     placeholder: String,
     label: String,
@@ -34,6 +35,7 @@ fun AuthField(
 
         error?.let {
             Text(
+                modifier = errorModifier,
                 text = stringResource(error),
                 color = Color.Red
             )

@@ -9,7 +9,11 @@ class DogCollectionUtils {
                 if (userDogs.contains(dog)) {
                     dog
                 } else {
-                    Dog(id = dog.id, index = dog.index, inCollection = false)
+                    Dog(
+                        id = dog.id,
+                        index = dog.index,
+                        inCollection = false
+                    )
                 }
             }.sortedBy { dog -> dog.index }
         }

@@ -3,6 +3,7 @@ package com.ianpedraza.dogedex.ui.auth.signup
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.ComposeView
 import androidx.fragment.app.Fragment
@@ -33,7 +34,7 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): ComposeView = contentView {
         DogedexTheme {
-            val uiState by viewModel.uiState
+            val uiState by viewModel.uiState.collectAsState()
 
             if (uiState.signUpStatus is DataState.Success) {
                 showSuccess((uiState.signUpStatus as DataState.Success<User>).data)

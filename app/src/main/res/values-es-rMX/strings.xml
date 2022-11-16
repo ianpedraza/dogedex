@@ -35,7 +35,7 @@
     <string name="error_login_in">Error al iniciar sesión</string>
     <string name="error_user_already_exist">El usuario ya existe</string>
     <string name="error_user_not_found">El usuario no existe</string>
-    <string name="error_unkown">Ocurrió un error desconocido</string>
+    <string name="error_unknown">Ocurrió un error desconocido</string>
     <string name="error_no_internet_conecction">No hay conexión</string>
     <string name="error_wrong_user_or_password">Usuario o contraseña incorrectos</string>
     <string name="error_adding_dog">Ocurrió un error al agregar el perro</string>
@@ -48,4 +48,7 @@
     <string name="image_taken_by_the_camera">Foto tomada por la cámara</string>
     <string name="error_invalid_bitmap">Bitmap inválido</string>
     <string name="error_dialog_title">Oops, algo salió mal</string>
+    <string name="back_button">Botón atras</string>
+    <string name="title_activity_auth">AuthActivity</string>
+    <string name="dog_collection">Dog collection</string>
 </resources>
